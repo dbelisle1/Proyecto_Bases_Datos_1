@@ -1,0 +1,54 @@
+﻿@model Proyecto_Inmuebles.Models.RegisterViewModel
+@{
+    ViewData["Title"] = "Registro";
+}
+
+<h2>Registro</h2>
+
+<form asp-action="Register" method="post" style="display:grid; gap:8px; max-width:280px;">
+
+    <input asp-for="IdTipoUsuario" hidden/>
+    <label>Usuario</label>
+    <input asp-for="NombreUsuario" autocomplete="NombreUsuario" />
+
+    <label>Contrasena</label>
+    <input asp-for="Contrasena" type="password" autocomplete="new-password" />
+
+    <label>Correo</label>
+    <input asp-for="Correo" autocomplete="new-password" />
+
+    <label>Nombres</label>
+    <input asp-for="Nombres" autocomplete="Nombres" />
+
+     <label>Apellidos</label>
+    <input asp-for="Apellidos" autocomplete="Apellidos" />
+
+    <label>Direccion</label>
+    <input asp-for="Direccion" autocomplete="Direccion" />
+
+    @if(Model.IdTipoUsuario == 1) //Agente
+    {
+        <label>Codigo</label>
+        <input asp-for="Codigo" autocomplete="Codigo" />
+    }
+    else if (Model.IdTipoUsuario == 2) //Vendedor
+    {
+    }
+    else if (Model.IdTipoUsuario == 3) // Comprador
+    {
+        <label>Telefono</label>
+        <input asp-for="Telefono" autocomplete="Telefono" />
+        <label>EstadoCivil</label>
+        <input asp-for="EstadoCivil" autocomplete="EstadoCivil" />
+        <label>Nacionalidad</label>
+        <input asp-for="Nacionalidad" autocomplete="Nacionalidad" />
+        <label>Edad</label>
+        <input asp-for="Edad" autocomplete="Edad" />
+    }
+
+    <button type="submit">Crear cuenta</button>
+</form>
+
+<p style="margin-top:12px;">
+    <a asp-controller="Account" asp-action="Login">regresar al login</a>
+</p>

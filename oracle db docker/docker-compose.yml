@@ -1,0 +1,18 @@
+services:
+  oracle:
+    image: gvenzl/oracle-free:23-slim
+    container_name: oracle-free
+    ports:
+      - "1521:1521"   # Oracle listener
+      - "5500:5500"   # (optional) EM Express
+    environment:
+      ORACLE_PASSWORD: 'Adm1n$2025'   # SYS/SYSTEM password
+      APP_USER: 'ALUMNO'              # your app user
+      APP_USER_PASSWORD: 'Umg$2025'   # your app user password
+      ORACLE_CHARACTERSET: 'AL32UTF8' # optional but recommended
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+    restart: unless-stopped
+
+volumes:
+  oracle-data:

@@ -1,0 +1,2 @@
+docker compose up -d
+docker compose logs -f   # wait for "DATABASE IS READY TO USE!"

@@ -1,0 +1,10 @@
+﻿@{
+    ViewData["Title"] = "Unauthorized";
+    var returnUrl = (string?)ViewData["ReturnUrl"] ?? "/";
+}
+
+<h2>Unauthorized</h2>
+<p>You must be logged in to access that page.</p>
+<p>
+    <a asp-controller="Account" asp-action="Login" asp-route-returnUrl="@returnUrl">Go to Login</a>
+</p>

@@ -1,0 +1,22 @@
+﻿@model Proyecto_Inmuebles.Models.TipoUsuarioVerViewModel
+@{
+    ViewData["Title"] = "Modificar Tipo de Usuario";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p style="margin-top:12px;">
+    
+
+    <form asp-action="ModificarTipoUsuarioAccion" method="post" style="display:grid; gap:8px; max-width:280px;">
+       
+        <input asp-for="IdTipoUsuario" hidden/>
+
+        <label>NombreTipo</label>
+        <input asp-for="NombreTipo" />
+
+        <button type="submit">Guardar</button>
+    </form>
+
+</p>
+
+<a asp-controller="TipoUsuario" asp-action="Index" class="btn btn-outline-info">@("<- Regresar")</a>

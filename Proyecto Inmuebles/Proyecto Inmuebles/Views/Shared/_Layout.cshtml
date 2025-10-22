@@ -1,0 +1,44 @@
+﻿@using Proyecto_Inmuebles.Services
+@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - Proyecto Inmuebles</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          crossorigin="anonymous">
+
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    @if (User?.Identity?.IsAuthenticated ?? false)
+    {
+        var userType = HttpContextAccessor.HttpContext?.Session.GetInt32(SessionKeys.UserType) ?? 0;
+        var IdUsuario = HttpContextAccessor.HttpContext?.Session.GetInt32(SessionKeys.IdUsuario) ?? 0;
+        <header style="padding:8px; border-bottom:1px solid #ddd; display:flex; gap:12px; align-items:center; overflow-y:scroll;">
+            <nav style="display:flex; gap:12px;">
+                @foreach (var item in NavbarService.fillNavbar(userType))
+                {
+                    <a asp-controller="@item.Controller" asp-action="@item.Action" class="btn btn-outline-info">@item.Text</a>
+                }
+            </nav>
+
+            <div style="margin-left:auto; display:flex; gap:12px; align-items:center;">
+                <span>Type: @userType y @IdUsuario</span>
+                <a asp-controller="Account" asp-action="Logout">Logout</a>
+            </div>
+        </header>
+    }
+
+    <div class="container" style="padding:16px;">
+        @RenderBody()
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+                crossorigin="anonymous"></script>
+    </div>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
