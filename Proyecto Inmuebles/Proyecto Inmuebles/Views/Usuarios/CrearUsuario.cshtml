@@ -1,0 +1,48 @@
+﻿@model Proyecto_Inmuebles.Models.UsuariosVerViewModel
+@{
+    ViewData["Title"] = "Crear Usuario";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p style="margin-top:12px;">
+    
+    <form asp-controller="Usuarios" asp-action="CrearUsuarioAccion" method="post" style="display:grid; gap:8px; max-width:280px;">
+       
+       
+        <label>Usuario</label>
+        <input asp-for="NombreUsuario" autocomplete="NombreUsuario" />
+
+        <label>Contrasena</label>
+        <input asp-for="Contrasena" autocomplete="new-password" />
+
+        <label>Correo</label>
+        <input asp-for="Correo" autocomplete="new-password" />
+
+        <label for="IdTipoUsuario">tipo de usuario:</label>
+        <select id="IdTipoUsuario" name="IdTipoUsuario" class="form-control">
+            @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.listaTiposUsuario)
+            {
+                if (item.Value == Model.IdTipoUsuario.ToString())
+                {
+                    <option value="@item.Value" selected>
+                        @item.Text
+                        
+                    </option>
+                }
+                else
+                {
+                    <option value="@item.Value">
+                        @item.Text
+
+                    </option>
+                }
+               
+            }
+        </select>
+
+        <button type="submit">Guardar</button>
+    </form>
+
+</p>
+
+<a asp-controller="Usuarios" asp-action="Index" class="btn btn-outline-info">@("<- Regresar")</a>

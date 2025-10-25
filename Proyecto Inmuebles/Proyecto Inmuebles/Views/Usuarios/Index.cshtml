@@ -1,0 +1,80 @@
+﻿@model Proyecto_Inmuebles.Models.UsuariosViewModel
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<h2>@ViewData["Title"]</h2>
+<a asp-controller="Usuarios" asp-action="CrearUsuario" class="btn btn-outline-info">@("Crear +")</a>
+<p style="margin-top:12px;">
+    <div style="display:grid; gap:8px; max-width:700px;">
+
+        <table class="table table-striped table-bordered table-sm">
+            <thead>
+                <tr>
+                    <th>IdUsuario</th>
+                    <th>NombreUsuario</th>
+                    <th>Contrasena</th>
+                    <th>Correo</th>
+                    <th>IdTipoUsuario</th>
+                    <th class="text-center" style="width: 700px;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                @foreach (var item in Model.usuariosList)
+                {
+                <tr>
+                        <td>@item.IdUsuario</td>
+                        <td>@item.NombreUsuario</td>
+                        <td>@item.Contrasena</td>
+                        <td>@item.Correo</td>
+                        <td>
+
+                            @foreach (var it in (IEnumerable<SelectListItem>)ViewBag.listaTiposUsuario)
+                            {
+                                if (it.Value == item.IdTipoUsuario.ToString())
+                                {
+                                    <span>@it.Text</span>
+                                    break;
+                                }
+                                
+
+
+                            }
+
+                        </td>
+                    <td class="text-center" style="display: flex; justify-content: space-around;">
+                        <a asp-controller="Usuarios"
+                           asp-action="VerUsuario"
+                               asp-route-IdUsuario="@item.IdUsuario"
+                           class="btn btn-sm btn-outline-primary me-1">
+                            Ver
+                        </a>
+
+                        <a asp-controller="Usuarios"
+                           asp-action="ModificarUsuario"
+                               asp-route-IdUsuario="@item.IdUsuario"
+                           class="btn btn-sm btn-outline-secondary me-1">
+                            Modificar
+                        </a>
+
+                        <form asp-controller="Usuarios"
+                              asp-action="EliminarUsuario"
+                                  asp-route-IdUsuario="@item.IdUsuario"
+                              method="post"
+                              class="d-inline">
+                            <button type="submit"
+                                    class="btn btn-sm btn-outline-danger"
+                                    onclick="return confirm('¿Eliminar este Usuario?');">
+                                Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        
+    </div>
+</p>
+
+<a asp-controller="Home" asp-action="Index" class="btn btn-outline-info">@("<- Regresar")</a>

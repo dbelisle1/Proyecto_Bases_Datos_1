@@ -27,8 +27,9 @@ namespace Proyecto_Inmuebles.Services
             //Agente
             if (userType == 1 || userType == 99)
             {
-                navbarItems.Add(new NavItem { Text = "Home", Controller = "Home", Action = "Index" });
                 navbarItems.Add(new NavItem { Text = "Ventas", Controller = "Ventas", Action = "Index" });
+                navbarItems.Add(new NavItem { Text = "Publicaciones", Controller = "Publicaciones", Action = "Index" });
+
             }
 
             //Vendedor
