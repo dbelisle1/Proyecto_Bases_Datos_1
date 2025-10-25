@@ -12,6 +12,11 @@
             return "SELECT * FROM TipoUsuario WHERE IdTipoUsuario = :IdTipoUsuario";
         }
 
+        public static string InsertTipoQuery()
+        {
+            return "INSERT INTO TipoUsuario (IdTipoUsuario, NombreTipo) VALUES (:IdTipoUsuario, :NombreTipo) RETURNING IdTipoUsuario INTO :IdSalida";
+        }
+
         public static string UpdateTipoQuery()
         {
             return "UPDATE TipoUsuario SET NombreTipo = :NombreTipo WHERE IdTipoUsuario = :IdTipoUsuario";
@@ -21,5 +26,6 @@
         {
             return "UPDATE TipoUsuario SET Eliminado = 1 WHERE IdTipoUsuario = :IdTipoUsuario";
         }
+       
     }
 }

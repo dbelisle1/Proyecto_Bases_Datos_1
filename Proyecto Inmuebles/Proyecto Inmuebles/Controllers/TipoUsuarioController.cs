@@ -5,6 +5,7 @@ using Proyecto_Inmuebles.Models;
 using Proyecto_Inmuebles.Parser;
 using Proyecto_Inmuebles.Queries;
 using System.Reflection;
+using Oracle.ManagedDataAccess.Client;
 
 namespace Proyecto_Inmuebles.Controllers
 {
@@ -52,6 +53,31 @@ namespace Proyecto_Inmuebles.Controllers
 
             return View(viewModel);
         }
+
+
+        public IActionResult CrearTipoUsuario()
+        {
+            TipoUsuarioVerViewModel viewModel = new TipoUsuarioVerViewModel();
+
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> CrearTipoUsuarioAccion(TipoUsuarioVerViewModel model)
+        {
+            OracleDBConnection con = new OracleDBConnection();
+
+            var IdSalida = OracleDBConnection.Out("IdSalida", OracleDbType.Int32);
+
+            var (cantidadAfectados, salidas) = await con.InsertAsync(TipoUsuarioQueries.InsertTipoQuery(),
+                new[] {OracleDBConnection.In("NombreTipo", model.NombreTipo),
+               OracleDBConnection.In("IdTipoUsuario", model.IdTipoUsuario),
+               IdSalida
+                });
+
+
+            return RedirectToAction("Index", "TipoUsuario");
+        }
+
         public async Task<IActionResult> ModificarTipoUsuario(int IdTipoUsuario)
         {
             TipoUsuarioVerViewModel viewModel = new TipoUsuarioVerViewModel();

@@ -1,0 +1,22 @@
+﻿@model Proyecto_Inmuebles.Models.TiposInmuebleVerViewModel
+@{
+    ViewData["Title"] = "Modificar Tipo de Inmueble";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p style="margin-top:12px;">
+    
+
+    <form asp-action="ModificarTiposInmuebleAccion" method="post" style="display:grid; gap:8px; max-width:280px;">
+       
+        <input asp-for="IdTipoInmueble" hidden/>
+
+        <label>NombreTipo</label>
+        <input asp-for="NombreTipo" />
+
+        <button type="submit">Guardar</button>
+    </form>
+
+</p>
+
+<a asp-controller="TiposInmueble" asp-action="Index" class="btn btn-outline-info">@("<- Regresar")</a>
