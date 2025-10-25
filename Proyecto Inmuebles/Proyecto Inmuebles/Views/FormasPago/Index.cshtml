@@ -1,0 +1,60 @@
+﻿@model Proyecto_Inmuebles.Models.FormasPagoViewModel
+@{
+    ViewData["Title"] = "Formas de Pago";
+}
+
+<h2>@ViewData["Title"]</h2>
+<a asp-controller="FormasPago" asp-action="CrearFormasPago" class="btn btn-outline-info">@("Crear +")</a>
+<p style="margin-top:12px;">
+    <div style="display:grid; gap:8px; max-width:700px;">
+
+        <table class="table table-striped table-bordered table-sm">
+            <thead>
+                <tr>
+                    <th>IdFormaPago</th>
+                    <th>NombreFormaPago</th>
+                    <th class="text-center" style="width: 700px;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                @foreach (var item in Model.formasPagoList)
+                {
+                <tr>
+                        <td>@item.IdFormaPago</td>
+                    <td>@item.NombreFormaPago</td>
+                    <td class="text-center" style="display: flex; justify-content: space-around;">
+                        <a asp-controller="FormasPago"
+                           asp-action="VerFormasPago"
+                               asp-route-IdFormaPago="@item.IdFormaPago"
+                           class="btn btn-sm btn-outline-primary me-1">
+                            Ver
+                        </a>
+
+                        <a asp-controller="FormasPago"
+                           asp-action="ModificarFormasPago"
+                               asp-route-IdFormaPago="@item.IdFormaPago"
+                           class="btn btn-sm btn-outline-secondary me-1">
+                            Modificar
+                        </a>
+
+                        <form asp-controller="FormasPago"
+                              asp-action="EliminarFormasPago"
+                                  asp-route-IdFormaPago="@item.IdFormaPago"
+                              method="post"
+                              class="d-inline">
+                            <button type="submit"
+                                    class="btn btn-sm btn-outline-danger"
+                                    onclick="return confirm('¿Eliminar esta Forma de Pago?');">
+                                Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        
+    </div>
+</p>
+
+<a asp-controller="Home" asp-action="Index" class="btn btn-outline-info">@("<- Regresar")</a>

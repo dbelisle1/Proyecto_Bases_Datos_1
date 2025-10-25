@@ -48,25 +48,25 @@ CREATE TABLE TipoUsuario (
 );
 
 CREATE TABLE TiposInmueble (
-  IdTipoInmueble NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  IdTipoInmueble NUMBER PRIMARY KEY,
   NombreTipo     NVARCHAR2(50) NOT NULL,
   Eliminado      NUMBER(1) DEFAULT 0 NOT NULL CHECK (Eliminado IN (0,1))
 );
 
 CREATE TABLE FormasPago (
-  IdFormaPago      NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  IdFormaPago     NUMBER PRIMARY KEY,
   NombreFormaPago  NVARCHAR2(50) NOT NULL,
   Eliminado        NUMBER(1) DEFAULT 0 NOT NULL CHECK (Eliminado IN (0,1))
 );
 
 CREATE TABLE EstadoOferta (
-  IdEstadoOferta NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  IdEstadoOferta NUMBER PRIMARY KEY,
   NombreEstado   NVARCHAR2(20) NOT NULL,
   Eliminado      NUMBER(1) DEFAULT 0 NOT NULL CHECK (Eliminado IN (0,1))
 );
 
 CREATE TABLE Condicion (
-  IdCondicion     NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  IdCondicion    NUMBER PRIMARY KEY,
   NombreCondicion NVARCHAR2(100) NOT NULL,
   Eliminado       NUMBER(1) DEFAULT 0 NOT NULL CHECK (Eliminado IN (0,1))
 );
@@ -254,4 +254,46 @@ COMMIT;
 INSERT INTO Usuarios (IdTipoUsuario, NombreUsuario, Contrasena, Correo, Eliminado)
 VALUES (99, 'admin', 'admin', 'admin@mail.com', 0);
 
+--TIPOSINMUEBLE
+INSERT INTO TiposInmueble (IdTipoInmueble, NombreTipo, Eliminado)
+VALUES (1, 'Finca', 0);
 
+INSERT INTO TiposInmueble (IdTipoInmueble, NombreTipo, Eliminado)
+VALUES (2, 'Casa', 0);
+COMMIT;
+
+--FormasPago
+INSERT INTO FormasPago (IDFORMAPAGO, NOMBREFORMAPAGO, Eliminado)
+VALUES (1, 'Tarjeta', 0);
+
+INSERT INTO FormasPago (IDFORMAPAGO, NOMBREFORMAPAGO, Eliminado)
+VALUES (2, 'Prestamo', 0);
+COMMIT;
+
+--Estado Oferta
+INSERT INTO ESTADOOFERTA (IDESTADOOFERTA, NOMBREESTADO, Eliminado)
+VALUES (1, 'Disponible', 0);
+
+INSERT INTO ESTADOOFERTA (IDESTADOOFERTA, NOMBREESTADO, Eliminado)
+VALUES (2, 'Aceptada', 0);
+
+INSERT INTO ESTADOOFERTA (IDESTADOOFERTA, NOMBREESTADO, Eliminado)
+VALUES (3, 'Rechazada', 0);
+
+INSERT INTO ESTADOOFERTA (IDESTADOOFERTA, NOMBREESTADO, Eliminado)
+VALUES (4, 'ContraOferta', 0);
+
+
+COMMIT;
+
+--Condicion
+INSERT INTO CONDICION (IDCONDICION, NOMBRECONDICION, Eliminado)
+VALUES (1, 'Nuevo', 0);
+
+INSERT INTO CONDICION (IDCONDICION, NOMBRECONDICION, Eliminado)
+VALUES (2, 'Usado', 0);
+
+INSERT INTO CONDICION (IDCONDICION, NOMBRECONDICION, Eliminado)
+VALUES (3, 'Contruccion', 0);
+
+COMMIT;

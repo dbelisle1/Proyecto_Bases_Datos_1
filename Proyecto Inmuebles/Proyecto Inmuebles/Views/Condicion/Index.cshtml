@@ -1,0 +1,60 @@
+﻿@model Proyecto_Inmuebles.Models.CondicionViewModel
+@{
+    ViewData["Title"] = "Condición";
+}
+
+<h2>@ViewData["Title"]</h2>
+<a asp-controller="Condicion" asp-action="CrearCondicion" class="btn btn-outline-info">@("Crear +")</a>
+<p style="margin-top:12px;">
+    <div style="display:grid; gap:8px; max-width:700px;">
+
+        <table class="table table-striped table-bordered table-sm">
+            <thead>
+                <tr>
+                    <th>IdCondicion</th>
+                    <th>NombreCondicion</th>
+                    <th class="text-center" style="width: 700px;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                @foreach (var item in Model.condicionList)
+                {
+                <tr>
+                        <td>@item.IdCondicion</td>
+                    <td>@item.NombreCondicion</td>
+                    <td class="text-center" style="display: flex; justify-content: space-around;">
+                        <a asp-controller="Condicion"
+                           asp-action="VerCondicion"
+                               asp-route-IdCondicion="@item.IdCondicion"
+                           class="btn btn-sm btn-outline-primary me-1">
+                            Ver
+                        </a>
+
+                        <a asp-controller="Condicion"
+                           asp-action="ModificarCondicion"
+                               asp-route-IdCondicion="@item.IdCondicion"
+                           class="btn btn-sm btn-outline-secondary me-1">
+                            Modificar
+                        </a>
+
+                        <form asp-controller="Condicion"
+                              asp-action="EliminarCondicion"
+                                  asp-route-IdCondicion="@item.IdCondicion"
+                              method="post"
+                              class="d-inline">
+                            <button type="submit"
+                                    class="btn btn-sm btn-outline-danger"
+                                    onclick="return confirm('¿Eliminar esta Condición?');">
+                                Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        
+    </div>
+</p>
+
+<a asp-controller="Home" asp-action="Index" class="btn btn-outline-info">@("<- Regresar")</a>

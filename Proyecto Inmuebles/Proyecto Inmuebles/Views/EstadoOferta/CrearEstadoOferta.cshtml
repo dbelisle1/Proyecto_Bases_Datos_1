@@ -1,0 +1,22 @@
+﻿@model Proyecto_Inmuebles.Models.EstadoOfertaVerViewModel
+@{
+    ViewData["Title"] = "Crear EstadoOferta";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p style="margin-top:12px;">
+    
+    <form asp-action="CrearEstadoOfertaAccion" method="post" style="display:grid; gap:8px; max-width:280px;">
+       
+        <label>ID</label>
+        <input asp-for="IdEstadoOferta"/>
+
+        <label>NombreEstadoOferta</label>
+        <input asp-for="NombreEstado" />
+
+        <button type="submit">Guardar</button>
+    </form>
+
+</p>
+
+<a asp-controller="EstadoOferta" asp-action="Index" class="btn btn-outline-info">@("<- Regresar")</a>

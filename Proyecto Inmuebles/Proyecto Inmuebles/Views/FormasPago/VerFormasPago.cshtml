@@ -1,0 +1,17 @@
+﻿@model Proyecto_Inmuebles.Models.FormasPagoVerViewModel
+@{
+    ViewData["Title"] = "Ver Forma de Pago";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p style="margin-top:12px;">
+    <form asp-action="" method="post" style="display:grid; gap:8px; max-width:280px;">
+        <label>IdFormaPago</label>
+        <input asp-for="IdFormaPago" disabled/>
+
+        <label>NombreFormaPago</label>
+        <input asp-for="NombreFormaPago" disabled />
+    </form>
+</p>
+
+<a asp-controller="FormasPago" asp-action="Index" class="btn btn-outline-info">@("<- Regresar")</a>

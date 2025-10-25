@@ -1,0 +1,17 @@
+﻿@model Proyecto_Inmuebles.Models.CondicionVerViewModel
+@{
+    ViewData["Title"] = "Ver Condición";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p style="margin-top:12px;">
+    <form asp-action="" method="post" style="display:grid; gap:8px; max-width:280px;">
+        <label>IdCondicion</label>
+        <input asp-for="IdCondicion" disabled/>
+
+        <label>NombreCondicion</label>
+        <input asp-for="NombreCondicion" disabled />
+    </form>
+</p>
+
+<a asp-controller="Condicion" asp-action="Index" class="btn btn-outline-info">@("<- Regresar")</a>
