@@ -1,0 +1,59 @@
+﻿@model Proyecto_Inmuebles.Models.CompradoresVerViewModel
+@{
+    ViewData["Title"] = "Ver Comprador";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p style="margin-top:12px;">
+    <form asp-action="" method="post" style="display:grid; gap:8px; max-width:280px;">
+        <label>Id</label>
+        <input asp-for="IdComprador" hidden />
+        <input value="@Model.IdComprador" disabled />
+
+        <label>Nombres</label>
+        <input asp-for="Nombres" autocomplete="Nombres" disabled />
+
+        <label>Apellidos</label>
+        <input asp-for="Apellidos" autocomplete="Apellidos" disabled />
+
+        <label>Direccion</label>
+        <input asp-for="Direccion" autocomplete="Direccion" disabled />
+
+        <label>Telefono</label>
+        <input asp-for="Telefono" autocomplete="Telefono" disabled />
+
+        <label>EstadoCivil</label>
+        <input asp-for="EstadoCivil" autocomplete="EstadoCivil" disabled />
+
+        <label>Nacionalidad</label>
+        <input asp-for="Nacionalidad" autocomplete="Nacionalidad" disabled />
+
+        <label>Edad</label>
+        <input asp-for="Edad" autocomplete="Edad" disabled />
+
+
+        <label for="IdUsuario">Usuario:</label>
+        <select id="IdUsuario" name="IdUsuario" class="form-control" disabled>
+            @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.listaUsuarios)
+            {
+                if (item.Value == Model.IdUsuario.ToString())
+                {
+                    <option value="@item.Value" selected>
+                        @item.Text
+
+                    </option>
+                }
+                else
+                {
+                    <option value="@item.Value">
+                        @item.Text
+
+                    </option>
+                }
+
+            }
+        </select>
+    </form>
+</p>
+
+<a asp-controller="Compradores" asp-action="Index" class="btn btn-outline-info">@("<- Regresar")</a>
