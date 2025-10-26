@@ -1,0 +1,50 @@
+﻿@model Proyecto_Inmuebles.Models.VendedoresVerViewModel
+@{
+    ViewData["Title"] = "Modificar Vendedor";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p style="margin-top:12px;">
+    
+    <form asp-controller="Vendedores" asp-action="ModificarVendedorAccion" method="post" style="display:grid; gap:8px; max-width:280px;">
+        <label>Id</label>
+        <input asp-for="IdVendedor" hidden />
+        <input value="@Model.IdVendedor" disabled />
+
+        <label>Nombres</label>
+        <input asp-for="Nombres" autocomplete="Nombres" />
+
+        <label>Apellidos</label>
+        <input asp-for="Apellidos" autocomplete="Apellidos" />
+
+        <label>Telefono</label>
+        <input asp-for="Direccion" autocomplete="Direccion" />
+
+
+        <label for="IdUsuario">Usuario:</label>
+        <select id="IdUsuario" name="IdUsuario" class="form-control">
+            @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.listaUsuarios)
+            {
+                if (item.Value == Model.IdUsuario.ToString())
+                {
+                    <option value="@item.Value" selected>
+                        @item.Text
+
+                    </option>
+                }
+                else
+                {
+                    <option value="@item.Value">
+                        @item.Text
+
+                    </option>
+                }
+
+            }
+        </select>
+        <button type="submit">Guardar</button>
+    </form>
+
+</p>
+
+<a asp-controller="Vendedores" asp-action="Index" class="btn btn-outline-info">@("<- Regresar")</a>

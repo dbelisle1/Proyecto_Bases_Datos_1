@@ -1,0 +1,80 @@
+﻿@model Proyecto_Inmuebles.Models.VendedoresViewModel
+@{
+    ViewData["Title"] = "Vendedores";
+}
+
+<h2>@ViewData["Title"]</h2>
+<a asp-controller="Vendedores" asp-action="CrearVendedor" class="btn btn-outline-info">@("Crear +")</a>
+<p style="margin-top:12px;">
+    <div style="display:grid; gap:8px; max-width:700px;">
+
+        <table class="table table-striped table-bordered table-sm">
+            <thead>
+                <tr>
+                    <th>IdVendedor</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Direccion</th>
+                    <th>Usuario</th>
+                    <th class="text-center" style="width: 700px;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                @foreach (var item in Model.VendedoresList)
+                {
+                <tr>
+                        <td>@item.IdVendedor</td>
+                        <td>@item.Nombres</td>
+                        <td>@item.Apellidos</td>
+                        <td>@item.Direccion</td>
+                        <td>
+
+                            @foreach (var it in (IEnumerable<SelectListItem>)ViewBag.listaUsuarios)
+                            {
+                                if (it.Value == item.IdUsuario.ToString())
+                                {
+                                    <span>@it.Text</span>
+                                    break;
+                                }
+                                
+
+
+                            }
+
+                        </td>
+                    <td class="text-center" style="display: flex; justify-content: space-around;">
+                        <a asp-controller="Vendedores"
+                           asp-action="VerVendedor"
+                               asp-route-IdVendedor="@item.IdVendedor"
+                           class="btn btn-sm btn-outline-primary me-1">
+                            Ver
+                        </a>
+
+                        <a asp-controller="Vendedores"
+                           asp-action="ModificarVendedor"
+                               asp-route-IdVendedor="@item.IdVendedor"
+                           class="btn btn-sm btn-outline-secondary me-1">
+                            Modificar
+                        </a>
+
+                        <form asp-controller="Vendedores"
+                              asp-action="EliminarVendedor"
+                                  asp-route-IdVendedor="@item.IdVendedor"
+                              method="post"
+                              class="d-inline">
+                            <button type="submit"
+                                    class="btn btn-sm btn-outline-danger"
+                                    onclick="return confirm('¿Eliminar este Vendedor?');">
+                                Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        
+    </div>
+</p>
+
+<a asp-controller="Home" asp-action="Index" class="btn btn-outline-info">@("<- Regresar")</a>
