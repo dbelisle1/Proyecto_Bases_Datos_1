@@ -38,7 +38,7 @@
 
         public static string DeleteAgenteQuery()
         {
-            return "UPDATE Agentes SET Eliminado = 1 WHERE IdAgente = :IdAgente";
+            return "UPDATE Agentes SET Eliminado = 1, IdUsuario = NULL WHERE IdAgente = :IdAgente";
         }
 
     }

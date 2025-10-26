@@ -38,7 +38,7 @@
 
         public static string DeleteCompradoresQuery()
         {
-            return "UPDATE Compradores SET Eliminado = 1 WHERE IdComprador = :IdComprador";
+            return "UPDATE Compradores SET Eliminado = 1, IdUsuario = NULL WHERE IdComprador = :IdComprador";
         }
     }
 }

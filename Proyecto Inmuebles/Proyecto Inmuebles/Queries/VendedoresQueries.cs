@@ -39,7 +39,7 @@
 
         public static string DeleteVendedorQuery()
         {
-            return "UPDATE Vendedores SET Eliminado = 1 WHERE IdVendedor = :IdVendedor";
+            return "UPDATE Vendedores SET Eliminado = 1, IdUsuario = NULL WHERE IdVendedor = :IdVendedor";
         }
     }
 }

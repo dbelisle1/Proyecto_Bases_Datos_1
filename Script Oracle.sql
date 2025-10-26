@@ -86,7 +86,7 @@ CREATE TABLE Usuarios (
 
 CREATE TABLE Compradores (
   IdComprador  NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  IdUsuario    NUMBER NOT NULL UNIQUE,
+  IdUsuario    NUMBER NULL UNIQUE,
   Nombres      NVARCHAR2(100) NOT NULL,
   Apellidos    NVARCHAR2(100) NOT NULL,
   Direccion    NVARCHAR2(200),
@@ -100,7 +100,7 @@ CREATE TABLE Compradores (
 
 CREATE TABLE Vendedores (
   IdVendedor                NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  IdUsuario                 NUMBER NOT NULL UNIQUE,
+  IdUsuario                 NUMBER NULL UNIQUE,
   Nombres                   NVARCHAR2(100) NOT NULL,
   Apellidos                 NVARCHAR2(100) NOT NULL,
   Direccion                 NVARCHAR2(200),
@@ -111,7 +111,7 @@ CREATE TABLE Vendedores (
 
 CREATE TABLE Agentes (
   IdAgente  NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  IdUsuario NUMBER NOT NULL UNIQUE,
+  IdUsuario NUMBER NULL UNIQUE,
   Codigo    NVARCHAR2(20) NOT NULL UNIQUE,
   Nombres   NVARCHAR2(100) NOT NULL,
   Apellidos NVARCHAR2(100) NOT NULL,
