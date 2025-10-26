@@ -1,0 +1,55 @@
+﻿@model Proyecto_Inmuebles.Models.AgentesVerViewModel
+@{
+    ViewData["Title"] = "Crear Agente";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p style="margin-top:12px;">
+    
+    <form asp-controller="Agentes" asp-action="CrearAgenteAccion" method="post" style="display:grid; gap:8px; max-width:280px;">
+       
+       
+        <label>Codigo</label>
+        <input asp-for="Codigo" autocomplete="Codigo" />
+
+        <label>Nombres</label>
+        <input asp-for="Nombres" autocomplete="Nombres" />
+
+        <label>Apellidos</label>
+        <input asp-for="Apellidos" autocomplete="Apellidos" />
+
+        <label>Telefono</label>
+        <input asp-for="Telefono" autocomplete="Telefono" />
+
+        <label>Correo</label>
+        <input asp-for="Correo" autocomplete="Correo" />
+
+
+        <label for="IdUsuario">Usuario:</label>
+        <select id="IdUsuario" name="IdUsuario" class="form-control">
+            @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.listaUsuarios)
+            {
+                if (item.Value == Model.IdUsuario.ToString())
+                {
+                    <option value="@item.Value" selected>
+                        @item.Text
+                        
+                    </option>
+                }
+                else
+                {
+                    <option value="@item.Value">
+                        @item.Text
+
+                    </option>
+                }
+               
+            }
+        </select>
+
+        <button type="submit">Guardar</button>
+    </form>
+
+</p>
+
+<a asp-controller="Agentes" asp-action="Index" class="btn btn-outline-info">@("<- Regresar")</a>

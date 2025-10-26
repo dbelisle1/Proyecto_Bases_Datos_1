@@ -1,0 +1,82 @@
+﻿@model Proyecto_Inmuebles.Models.AgentesViewModel
+@{
+    ViewData["Title"] = "Agentes";
+}
+
+<h2>@ViewData["Title"]</h2>
+<a asp-controller="Agentes" asp-action="CrearAgente" class="btn btn-outline-info">@("Crear +")</a>
+<p style="margin-top:12px;">
+    <div style="display:grid; gap:8px; max-width:700px;">
+
+        <table class="table table-striped table-bordered table-sm">
+            <thead>
+                <tr>
+                    <th>IdAgente</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Telefono</th>
+                    <th>Correo</th>
+                    <th>Usuario</th>
+                    <th class="text-center" style="width: 700px;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                @foreach (var item in Model.AgentesList)
+                {
+                <tr>
+                        <td>@item.IdAgente</td>
+                        <td>@item.Nombres</td>
+                        <td>@item.Apellidos</td>
+                        <td>@item.Telefono</td>
+                        <td>@item.Correo</td>
+                        <td>
+
+                            @foreach (var it in (IEnumerable<SelectListItem>)ViewBag.listaUsuarios)
+                            {
+                                if (it.Value == item.IdUsuario.ToString())
+                                {
+                                    <span>@it.Text</span>
+                                    break;
+                                }
+                                
+
+
+                            }
+
+                        </td>
+                    <td class="text-center" style="display: flex; justify-content: space-around;">
+                        <a asp-controller="Agentes"
+                           asp-action="VerAgente"
+                               asp-route-IdAgente="@item.IdAgente"
+                           class="btn btn-sm btn-outline-primary me-1">
+                            Ver
+                        </a>
+
+                        <a asp-controller="Agentes"
+                           asp-action="ModificarAgente"
+                               asp-route-IdAgente="@item.IdAgente"
+                           class="btn btn-sm btn-outline-secondary me-1">
+                            Modificar
+                        </a>
+
+                        <form asp-controller="Agentes"
+                              asp-action="EliminarAgente"
+                                  asp-route-IdAgente="@item.IdAgente"
+                              method="post"
+                              class="d-inline">
+                            <button type="submit"
+                                    class="btn btn-sm btn-outline-danger"
+                                    onclick="return confirm('¿Eliminar este Agente?');">
+                                Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        
+    </div>
+</p>
+
+<a asp-controller="Home" asp-action="Index" class="btn btn-outline-info">@("<- Regresar")</a>

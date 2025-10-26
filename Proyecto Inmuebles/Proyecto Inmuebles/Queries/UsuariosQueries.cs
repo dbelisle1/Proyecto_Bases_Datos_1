@@ -21,6 +21,21 @@
             return "SELECT * FROM Usuarios";
         }
 
+        public static string SelectUsuariosAgenteQuery()
+        {
+            return "SELECT u.* FROM Usuarios u JOIN TipoUsuario t ON u.IdTipoUsuario = t.IdTipoUsuario WHERE t.IdTipoUsuario = 1";
+        }
+
+        public static string SelectUsuariosVendedorQuery()
+        {
+            return "SELECT u.* FROM Usuarios u JOIN TipoUsuario t ON u.IdTipoUsuario = t.IdTipoUsuario WHERE t.IdTipoUsuario = 2";
+        }
+
+        public static string SelectUsuariosComrpradorQuery()
+        {
+            return "SELECT u.* FROM Usuarios u JOIN TipoUsuario t ON u.IdTipoUsuario = t.IdTipoUsuario WHERE t.IdTipoUsuario = 3";
+        }
+
         public static string SelectUsuarioFiltroQuery()
         {
             return "SELECT * FROM Usuarios WHERE IdUsuario = :IdUsuario";

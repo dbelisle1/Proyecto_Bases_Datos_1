@@ -1,0 +1,51 @@
+﻿@model Proyecto_Inmuebles.Models.AgentesVerViewModel
+@{
+    ViewData["Title"] = "Ver Agente";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p style="margin-top:12px;">
+    <form asp-action="" method="post" style="display:grid; gap:8px; max-width:280px;">
+        <label>Id</label>
+        <input asp-for="IdAgente" hidden />
+        <input value="@Model.IdAgente" disabled />
+
+        <label>Codigo</label>
+        <input asp-for="Codigo" autocomplete="Codigo" disabled />
+
+        <label>Nombres</label>
+        <input asp-for="Nombres" autocomplete="Nombres" disabled />
+
+        <label>Apellidos</label>
+        <input asp-for="Apellidos" autocomplete="Apellidos" disabled />
+
+        <label>Telefono</label>
+        <input asp-for="Telefono" autocomplete="Telefono" disabled />
+
+        <label>Correo</label>
+        <input asp-for="Correo" autocomplete="Correo" disabled />
+
+        <label for="IdUsuario">Usuario:</label>
+        <select id="IdUsuario" name="IdUsuario" class="form-control" disabled>
+            @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.listaUsuarios)
+            {
+                if (item.Value == Model.IdUsuario.ToString())
+                {
+                    <option value="@item.Value" selected>
+                        @item.Text
+
+                    </option>
+                }
+                else
+                {
+                    <option value="@item.Value">
+                        @item.Text
+                    </option>
+                }
+
+            }
+        </select>
+    </form>
+</p>
+
+<a asp-controller="Agentes" asp-action="Index" class="btn btn-outline-info">@("<- Regresar")</a>

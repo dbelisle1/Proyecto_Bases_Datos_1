@@ -297,3 +297,5 @@ INSERT INTO CONDICION (IDCONDICION, NOMBRECONDICION, Eliminado)
 VALUES (3, 'Contruccion', 0);
 
 COMMIT;
+
+SELECT u.* FROM Usuarios u JOIN TipoUsuario t ON u.IdTipoUsuario = t.IdTipoUsuario WHERE t.IdTipoUsuario = 1
