@@ -26,7 +26,7 @@ namespace Proyecto_Inmuebles.Controllers
 
             ViewBag.listaTiposUsuario = tiposUsuario;
             ViewData["ReturnUrl"] = returnUrl;
-            return View(new LoginViewModel{ Username="admin", Password= "admin" });
+            return View(new LoginViewModel{ Username= "vendedorUsr", Password= "vendedorUsr" });
         }
 
         [AllowAnonymous]

@@ -24,7 +24,7 @@
 
         public static string InsertCompradoresQuery()
         {
-            return "INSERT INTO Compradores (, IdUsuario, Nombres, Apellidos, Direccion, Telefono, EstadoCivil, Nacionalidad, Edad) " +
+            return "INSERT INTO Compradores (IdUsuario, Nombres, Apellidos, Direccion, Telefono, EstadoCivil, Nacionalidad, Edad) " +
                    "VALUES (:IdUsuario, :Nombres, :Apellidos, :Direccion, :Telefono, :EstadoCivil, :Nacionalidad, :Edad) " +
                    "RETURNING IdComprador INTO :IdSalida";
         }

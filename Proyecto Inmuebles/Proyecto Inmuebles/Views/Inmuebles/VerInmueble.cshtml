@@ -1,0 +1,144 @@
+﻿@model Proyecto_Inmuebles.Models.InmueblesVerViewModel
+@{
+    ViewData["Title"] = "Ver Inmueble";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p style="margin-top:12px;">
+
+    <form asp-controller="Inmuebles" asp-action="" method="post" style="display:grid; gap:8px; max-width:280px;">
+
+        <label for="IdVendedor">IdVendedor:</label>
+        <select id="IdVendedor" name="IdVendedor" class="form-control" disabled>
+            @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.listaVendedores)
+            {
+                if (item.Value == Model.IdVendedor.ToString())
+                {
+                    <option value="@item.Value" selected>
+                        @item.Text
+
+                    </option>
+                }
+                else
+                {
+                    <option value="@item.Value">
+                        @item.Text
+
+                    </option>
+                }
+
+            }
+        </select>
+
+
+        <label for="IdTipoInmueble">IdTipoInmueble:</label>
+        <select id="IdTipoInmueble" name="IdTipoInmueble" class="form-control" disabled>
+            @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.listaTipos)
+            {
+                if (item.Value == Model.IdTipoInmueble.ToString())
+                {
+                    <option value="@item.Value" selected>
+                        @item.Text
+
+                    </option>
+                }
+                else
+                {
+                    <option value="@item.Value">
+                        @item.Text
+
+                    </option>
+                }
+
+            }
+        </select>
+
+        <label>Direccion</label>
+        <input asp-for="Direccion" autocomplete="Direccion" disabled />
+
+        <label>Precio</label>
+        <input asp-for="Precio" autocomplete="Precio" disabled />
+
+        <label>Precio</label>
+        <input asp-for="Precio" autocomplete="Precio" disabled />
+        <label>Metraje</label>
+        <input asp-for="Metraje" autocomplete="Metraje" disabled />
+        <label>AntiguedadAnos</label>
+        <input asp-for="AntiguedadAnos" autocomplete="AntiguedadAnos" disabled />
+        <label>Modelo</label>
+        <input asp-for="Modelo" autocomplete="Modelo" disabled />
+        <label>Material</label>
+        <input asp-for="Material" autocomplete="Material" disabled />
+        <label>Descripcion</label>
+        <input asp-for="Descripcion" autocomplete="Descripcion" disabled />
+
+        <label for="IdCondicion1">IdCondicion1:</label>
+        <select id="IdCondicion1" name="IdCondicion1" class="form-control" disabled>
+            @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.listaCondiciones)
+            {
+                if (item.Value == Model.IdCondicion1.ToString())
+                {
+                    <option value="@item.Value" selected>
+                        @item.Text
+
+                    </option>
+                }
+                else
+                {
+                    <option value="@item.Value">
+                        @item.Text
+
+                    </option>
+                }
+
+            }
+        </select>
+
+        <label for="IdCondicion2">IdCondicion2:</label>
+        <select id="IdCondicion2" name="IdCondicion2" class="form-control" disabled>
+            @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.listaCondiciones)
+            {
+                if (item.Value == Model.IdCondicion2.ToString())
+                {
+                    <option value="@item.Value" selected>
+                        @item.Text
+
+                    </option>
+                }
+                else
+                {
+                    <option value="@item.Value">
+                        @item.Text
+
+                    </option>
+                }
+
+            }
+        </select>
+
+        <label for="IdCondicion3">IdCondicion3:</label>
+        <select id="IdCondicion3" name="IdCondicion3" class="form-control" disabled>
+            @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.listaCondiciones)
+            {
+                if (item.Value == Model.IdCondicion3.ToString())
+                {
+                    <option value="@item.Value" selected>
+                        @item.Text
+
+                    </option>
+                }
+                else
+                {
+                    <option value="@item.Value">
+                        @item.Text
+
+                    </option>
+                }
+
+            }
+        </select>
+    </form>
+
+</p>
+
+<a asp-controller="Inmuebles" asp-action="Index" class="btn btn-outline-info">@("<- Regresar")</a>

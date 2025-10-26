@@ -10,6 +10,11 @@
         return "SELECT * FROM Condicion WHERE IdCondicion = :IdCondicion";
     }
 
+    public static string SelectCondicionByIdInmuebleQuery()
+    {
+        return "SELECT * FROM Condicion c JOIN WHERE IdCondicion = :IdCondicion";
+    }
+
     public static string InsertCondicionQuery()
     {
         return "INSERT INTO Condicion (IdCondicion, NombreCondicion) VALUES (:IdCondicion, :NombreCondicion) RETURNING IdCondicion INTO :IdSalida";

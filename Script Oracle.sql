@@ -296,7 +296,55 @@ VALUES (2, 'Usado', 0);
 INSERT INTO CONDICION (IDCONDICION, NOMBRECONDICION, Eliminado)
 VALUES (3, 'Contruccion', 0);
 
+INSERT INTO CONDICION (IDCONDICION, NOMBRECONDICION, Eliminado)
+VALUES (4, 'En Proceso', 0);
+
 COMMIT;
 
-SELECT u.* FROM Usuarios u JOIN TipoUsuario t ON u.IdTipoUsuario = t.IdTipoUsuario WHERE t.IdTipoUsuario = 1; -- AGENTE
+--Vendedores
+
+INSERT INTO Usuarios (IdTipoUsuario, NombreUsuario, Contrasena, Correo, Eliminado)
+VALUES (2, 'vendedorUsr', 'vendedorUsr', 'vendedorUsr@mail.com', 0);
+
+INSERT INTO Vendedores (IdUsuario, Nombres, Apellidos, Direccion) VALUES (2, 'vendedorUsr', 'vendedorUsrAp', 'DirvendedorUsr');
+COMMIT;
+
+--Compradores
+
+INSERT INTO Usuarios (IdTipoUsuario, NombreUsuario, Contrasena, Correo, Eliminado)
+VALUES (3, 'CompUsr', 'CompUsr', 'CompUsr@mail.com', 0);
+
+INSERT INTO Compradores (IdUsuario, Nombres, Apellidos, Direccion, Telefono, EstadoCivil, Nacionalidad, Edad) 
+VALUES (3, 'CompUsr', 'CompUsrAp', 'DirCompUsr', 'telCompUsr', 'estCompUsr', 'nacCompUsr',25);
+COMMIT;
+
+
+-- Agente
+
+INSERT INTO Usuarios (IdTipoUsuario, NombreUsuario, Contrasena, Correo, Eliminado)
+VALUES (1, 'agenteUsr', 'agenteUsr', 'agenteUsr@mail.com', 0);
+
+INSERT INTO AgenteS (IdUsuario, Codigo, Nombres, Apellidos, Telefono, Correo)
+VALUES (4, 'agenteUsrCod', 'NagenteUsr', 'ApagenteUsr', 'TelagenteUsr', 'CoragenteUsr');
+COMMIT;
+
+-- Inmuebles
+
+INSERT INTO INMUEBLES (IdVendedor, IdTipoInmueble, Direccion, Precio, Metraje, AntiguedadAnos, Modelo, Material, Descripcion)
+Values (1, 1, 'DirInm1', 10, 20, 30, 'ModInm1', 'MatInm1', 'DescInm1');
+COMMIT;
+
+INSERT INTO INMUEBLECONDICION(IDINMUEBLE, IDCONDICION) VALUES (1,1);
+INSERT INTO INMUEBLECONDICION(IDINMUEBLE, IDCONDICION) VALUES (1,3);
+INSERT INTO INMUEBLECONDICION(IDINMUEBLE, IDCONDICION) VALUES (1,2);
+COMMIT;
+
+INSERT INTO INMUEBLES (IdVendedor, IdTipoInmueble, Direccion, Precio, Metraje, AntiguedadAnos, Modelo, Material, Descripcion)
+Values (1, 1, 'DirInm2', 10, 20, 30, 'ModInm2', 'MatInm2', 'DescInm2');
+COMMIT;
+
+INSERT INTO INMUEBLECONDICION(IDINMUEBLE, IDCONDICION) VALUES (2,1);
+INSERT INTO INMUEBLECONDICION(IDINMUEBLE, IDCONDICION) VALUES (2,4);
+INSERT INTO INMUEBLECONDICION(IDINMUEBLE, IDCONDICION) VALUES (2,2);
+COMMIT;
 
