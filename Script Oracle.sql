@@ -261,6 +261,9 @@ VALUES (1, 'Finca', 0);
 INSERT INTO TiposInmueble (IdTipoInmueble, NombreTipo, Eliminado)
 VALUES (2, 'Casa', 0);
 COMMIT;
+INSERT INTO TiposInmueble (IdTipoInmueble, NombreTipo, Eliminado) VALUES (3, 'Apartamento', 0);
+INSERT INTO TiposInmueble (IdTipoInmueble, NombreTipo, Eliminado) VALUES (4, 'Terreno', 0);
+COMMIT;
 
 --FormasPago
 INSERT INTO FormasPago (IDFORMAPAGO, NOMBREFORMAPAGO, Eliminado)
@@ -268,6 +271,10 @@ VALUES (1, 'Tarjeta', 0);
 
 INSERT INTO FormasPago (IDFORMAPAGO, NOMBREFORMAPAGO, Eliminado)
 VALUES (2, 'Prestamo', 0);
+COMMIT;
+
+INSERT INTO FormasPago (IdFormaPago, NombreFormaPago, Eliminado) VALUES (3, 'Contado', 0);
+INSERT INTO FormasPago (IdFormaPago, NombreFormaPago, Eliminado) VALUES (4, 'Transferencia', 0);
 COMMIT;
 
 --Estado Oferta
@@ -306,16 +313,41 @@ COMMIT;
 INSERT INTO Usuarios (IdTipoUsuario, NombreUsuario, Contrasena, Correo, Eliminado)
 VALUES (2, 'vendedorUsr', 'vendedorUsr', 'vendedorUsr@mail.com', 0);
 
-INSERT INTO Vendedores (IdUsuario, Nombres, Apellidos, Direccion) VALUES (2, 'vendedorUsr', 'vendedorUsrAp', 'DirvendedorUsr');
+INSERT INTO Usuarios (IdTipoUsuario, NombreUsuario, Contrasena, Correo, Eliminado) VALUES (2, 'vendedor2', 'vendedor2', 'vendedor2@mail.com
+', 0);
+INSERT INTO Usuarios (IdTipoUsuario, NombreUsuario, Contrasena, Correo, Eliminado) VALUES (2, 'vendedor3', 'vendedor3', 'vendedor3@mail.com
+', 0);
+
+INSERT INTO Vendedores (IdUsuario, Nombres, Apellidos, Direccion) 
+VALUES ((SELECT IdUsuario FROM Usuarios WHERE NombreUsuario='vendedorUsr'), 'vendedorUsr', 'vendedorUsrAp', 'DirvendedorUsr');
 COMMIT;
+
+INSERT INTO Vendedores (IdUsuario, Nombres, Apellidos, Direccion, CantidadInmueblesVendidos, Eliminado)
+VALUES ((SELECT IdUsuario FROM Usuarios WHERE NombreUsuario='vendedor2'), 'Vendedor2N', 'Vendedor2A', 'DirVendedor2', 0, 0);
+
+INSERT INTO Vendedores (IdUsuario, Nombres, Apellidos, Direccion, CantidadInmueblesVendidos, Eliminado)
+VALUES ((SELECT IdUsuario FROM Usuarios WHERE NombreUsuario='vendedor3'), 'Vendedor3N', 'Vendedor3A', 'DirVendedor3', 0, 0);
+COMMIT;
+
 
 --Compradores
 
 INSERT INTO Usuarios (IdTipoUsuario, NombreUsuario, Contrasena, Correo, Eliminado)
 VALUES (3, 'CompUsr', 'CompUsr', 'CompUsr@mail.com', 0);
+INSERT INTO Usuarios (IdTipoUsuario, NombreUsuario, Contrasena, Correo, Eliminado) VALUES (3, 'comp2', 'comp2', 'comp2@mail.com
+', 0);
+INSERT INTO Usuarios (IdTipoUsuario, NombreUsuario, Contrasena, Correo, Eliminado) VALUES (3, 'comp3', 'comp3', 'comp3@mail.com
+', 0);
+COMMIT;
 
 INSERT INTO Compradores (IdUsuario, Nombres, Apellidos, Direccion, Telefono, EstadoCivil, Nacionalidad, Edad) 
-VALUES (3, 'CompUsr', 'CompUsrAp', 'DirCompUsr', 'telCompUsr', 'estCompUsr', 'nacCompUsr',25);
+VALUES ((SELECT IdUsuario FROM Usuarios WHERE NombreUsuario='CompUsr'), 'CompUsr', 'CompUsrAp', 'DirCompUsr', 'telCompUsr', 'estCompUsr', 'nacCompUsr',25);
+COMMIT;
+INSERT INTO Compradores (IdUsuario, Nombres, Apellidos, Direccion, Telefono, EstadoCivil, Nacionalidad, Edad, Eliminado)
+VALUES ((SELECT IdUsuario FROM Usuarios WHERE NombreUsuario='comp2'), 'Comp2N', 'Comp2A', 'DirComp2', '5022002', 'Soltero', 'Guatemala', 28, 0);
+
+INSERT INTO Compradores (IdUsuario, Nombres, Apellidos, Direccion, Telefono, EstadoCivil, Nacionalidad, Edad, Eliminado)
+VALUES ((SELECT IdUsuario FROM Usuarios WHERE NombreUsuario='comp3'), 'Comp3N', 'Comp3A', 'DirComp3', '5022003', 'Casado', 'Guatemala', 35, 0);
 COMMIT;
 
 
@@ -323,9 +355,22 @@ COMMIT;
 
 INSERT INTO Usuarios (IdTipoUsuario, NombreUsuario, Contrasena, Correo, Eliminado)
 VALUES (1, 'agenteUsr', 'agenteUsr', 'agenteUsr@mail.com', 0);
+INSERT INTO Usuarios (IdTipoUsuario, NombreUsuario, Contrasena, Correo, Eliminado) VALUES (1, 'agente2', 'agente2', 'agente2@mail.com
+', 0);
+INSERT INTO Usuarios (IdTipoUsuario, NombreUsuario, Contrasena, Correo, Eliminado) VALUES (1, 'agente3', 'agente3', 'agente3@mail.com
+', 0);
 
 INSERT INTO AgenteS (IdUsuario, Codigo, Nombres, Apellidos, Telefono, Correo)
-VALUES (4, 'agenteUsrCod', 'NagenteUsr', 'ApagenteUsr', 'TelagenteUsr', 'CoragenteUsr');
+VALUES ((SELECT IdUsuario FROM Usuarios WHERE NombreUsuario='agenteUsr'), 'agenteUsrCod', 'NagenteUsr', 'ApagenteUsr', 'TelagenteUsr', 'CoragenteUsr');
+COMMIT;
+
+INSERT INTO Agentes (IdUsuario, Codigo, Nombres, Apellidos, Telefono, Correo, Eliminado)
+VALUES ((SELECT IdUsuario FROM Usuarios WHERE NombreUsuario='agente2'), 'AG002', 'Agente2N', 'Agente2A', '5021002', 'agente2@mail.com
+', 0);
+
+INSERT INTO Agentes (IdUsuario, Codigo, Nombres, Apellidos, Telefono, Correo, Eliminado)
+VALUES ((SELECT IdUsuario FROM Usuarios WHERE NombreUsuario='agente3'), 'AG003', 'Agente3N', 'Agente3A', '5021003', 'agente3@mail.com
+', 0);
 COMMIT;
 
 -- Inmuebles
@@ -348,3 +393,284 @@ INSERT INTO INMUEBLECONDICION(IDINMUEBLE, IDCONDICION) VALUES (2,4);
 INSERT INTO INMUEBLECONDICION(IDINMUEBLE, IDCONDICION) VALUES (2,2);
 COMMIT;
 
+INSERT INTO Inmuebles (IdVendedor, IdTipoInmueble, Direccion, Precio, Metraje, AntiguedadAnos, Modelo, Material, Descripcion, Eliminado)
+VALUES (
+(SELECT v.IdVendedor FROM Vendedores v JOIN Usuarios u ON v.IdUsuario=u.IdUsuario WHERE u.NombreUsuario='vendedor2'),
+2, 'DirInm3', 120000, 180, 5, 'ModInm3', 'Block', 'Casa de 3 habitaciones', 0
+);
+
+
+INSERT INTO Inmuebles (IdVendedor, IdTipoInmueble, Direccion, Precio, Metraje, AntiguedadAnos, Modelo, Material, Descripcion, Eliminado)
+VALUES (
+(SELECT v.IdVendedor FROM Vendedores v JOIN Usuarios u ON v.IdUsuario=u.IdUsuario WHERE u.NombreUsuario='vendedor2'),
+3, 'DirInm4', 80000, 85, 2, 'ModInm4', 'Concreto', 'Apartamento céntrico', 0
+);
+
+INSERT INTO Inmuebles (IdVendedor, IdTipoInmueble, Direccion, Precio, Metraje, AntiguedadAnos, Modelo, Material, Descripcion, Eliminado)
+VALUES (
+(SELECT v.IdVendedor FROM Vendedores v JOIN Usuarios u ON v.IdUsuario=u.IdUsuario WHERE u.NombreUsuario='vendedor3'),
+4, 'DirInm5', 50000, 1000, 0, 'ModInm5', 'Tierra', 'Terreno en desarrollo', 0
+);
+COMMIT;
+
+-- Inmueble 1: agregar (1,2,3) si faltan
+INSERT INTO InmuebleCondicion (IdInmueble, IdCondicion)
+SELECT 1, 1 FROM dual
+WHERE NOT EXISTS (SELECT 1 FROM InmuebleCondicion WHERE IdInmueble=1 AND IdCondicion=1);
+
+INSERT INTO InmuebleCondicion (IdInmueble, IdCondicion)
+SELECT 1, 2 FROM dual
+WHERE NOT EXISTS (SELECT 1 FROM InmuebleCondicion WHERE IdInmueble=1 AND IdCondicion=2);
+
+INSERT INTO InmuebleCondicion (IdInmueble, IdCondicion)
+SELECT 1, 3 FROM dual
+WHERE NOT EXISTS (SELECT 1 FROM InmuebleCondicion WHERE IdInmueble=1 AND IdCondicion=3);
+
+-- Inmueble 2: agregar (2,3,4) si faltan
+INSERT INTO InmuebleCondicion (IdInmueble, IdCondicion)
+SELECT 2, 2 FROM dual
+WHERE NOT EXISTS (SELECT 1 FROM InmuebleCondicion WHERE IdInmueble=2 AND IdCondicion=2);
+
+INSERT INTO InmuebleCondicion (IdInmueble, IdCondicion)
+SELECT 2, 3 FROM dual
+WHERE NOT EXISTS (SELECT 1 FROM InmuebleCondicion WHERE IdInmueble=2 AND IdCondicion=3);
+
+INSERT INTO InmuebleCondicion (IdInmueble, IdCondicion)
+SELECT 2, 4 FROM dual
+WHERE NOT EXISTS (SELECT 1 FROM InmuebleCondicion WHERE IdInmueble=2 AND IdCondicion=4);
+
+-- Inmueble 3 (DirInm3): ya tenía (2,4); agregamos (1,3) si faltan
+INSERT INTO InmuebleCondicion (IdInmueble, IdCondicion)
+SELECT i.IdInmueble, 1 FROM Inmuebles i
+WHERE i.Direccion='DirInm3'
+AND NOT EXISTS (SELECT 1 FROM InmuebleCondicion ic WHERE ic.IdInmueble=i.IdInmueble AND ic.IdCondicion=1);
+
+INSERT INTO InmuebleCondicion (IdInmueble, IdCondicion)
+SELECT i.IdInmueble, 3 FROM Inmuebles i
+WHERE i.Direccion='DirInm3'
+AND NOT EXISTS (SELECT 1 FROM InmuebleCondicion ic WHERE ic.IdInmueble=i.IdInmueble AND ic.IdCondicion=3);
+
+-- Inmueble 4 (DirInm4): ya tenía (1); agregamos (3,4) si faltan
+INSERT INTO InmuebleCondicion (IdInmueble, IdCondicion)
+SELECT i.IdInmueble, 3 FROM Inmuebles i
+WHERE i.Direccion='DirInm4'
+AND NOT EXISTS (SELECT 1 FROM InmuebleCondicion ic WHERE ic.IdInmueble=i.IdInmueble AND ic.IdCondicion=3);
+
+INSERT INTO InmuebleCondicion (IdInmueble, IdCondicion)
+SELECT i.IdInmueble, 4 FROM Inmuebles i
+WHERE i.Direccion='DirInm4'
+AND NOT EXISTS (SELECT 1 FROM InmuebleCondicion ic WHERE ic.IdInmueble=i.IdInmueble AND ic.IdCondicion=4);
+
+-- Inmueble 5 (DirInm5): ya tenía (3); agregamos (1,4) si faltan
+INSERT INTO InmuebleCondicion (IdInmueble, IdCondicion)
+SELECT i.IdInmueble, 1 FROM Inmuebles i
+WHERE i.Direccion='DirInm5'
+AND NOT EXISTS (SELECT 1 FROM InmuebleCondicion ic WHERE ic.IdInmueble=i.IdInmueble AND ic.IdCondicion=1);
+
+INSERT INTO InmuebleCondicion (IdInmueble, IdCondicion)
+SELECT i.IdInmueble, 4 FROM Inmuebles i
+WHERE i.Direccion='DirInm5'
+AND NOT EXISTS (SELECT 1 FROM InmuebleCondicion ic WHERE ic.IdInmueble=i.IdInmueble AND ic.IdCondicion=4);
+
+COMMIT;
+
+
+-- ===== Publicaciones de los nuevos inmuebles =====
+INSERT INTO Publicaciones (IdInmueble, IdAgente, FechaPublicacion, Eliminado)
+VALUES (
+(SELECT IdInmueble FROM Inmuebles WHERE Direccion='DirInm3'),
+(SELECT IdAgente FROM Agentes WHERE Codigo='AG002'),
+SYSTIMESTAMP - INTERVAL '20' DAY, 0
+);
+
+INSERT INTO Publicaciones (IdInmueble, IdAgente, FechaPublicacion, Eliminado)
+VALUES (
+(SELECT IdInmueble FROM Inmuebles WHERE Direccion='DirInm4'),
+(SELECT IdAgente FROM Agentes WHERE Codigo='AG002'),
+SYSTIMESTAMP - INTERVAL '18' DAY, 0
+);
+
+INSERT INTO Publicaciones (IdInmueble, IdAgente, FechaPublicacion, Eliminado)
+VALUES (
+(SELECT IdInmueble FROM Inmuebles WHERE Direccion='DirInm5'),
+(SELECT IdAgente FROM Agentes WHERE Codigo='AG003'),
+SYSTIMESTAMP - INTERVAL '12' DAY, 0
+);
+COMMIT;
+
+-- ===== Ofertas sobre las nuevas publicaciones =====
+-- Publicación Inm3 (DirInm3)
+-- Oferta rechazada de comp3
+INSERT INTO Ofertas (IdPublicacion, IdComprador, Monto, IdFormaPago, PlazoDias, FechaHora, IdEstadoOferta, Eliminado)
+VALUES (
+(SELECT p.IdPublicacion FROM Publicaciones p JOIN Inmuebles i ON p.IdInmueble=i.IdInmueble WHERE i.Direccion='DirInm3'),
+(SELECT c.IdComprador FROM Compradores c JOIN Usuarios u ON c.IdUsuario=u.IdUsuario WHERE u.NombreUsuario='comp3'),
+112000, 4, 0, SYSTIMESTAMP - INTERVAL '17' DAY, 3, 0
+); -- 3=Rechazada
+
+-- Oferta con contraoferta de comp2
+INSERT INTO Ofertas (IdPublicacion, IdComprador, Monto, IdFormaPago, PlazoDias, FechaHora, IdEstadoOferta, Eliminado)
+VALUES (
+(SELECT p.IdPublicacion FROM Publicaciones p JOIN Inmuebles i ON p.IdInmueble=i.IdInmueble WHERE i.Direccion='DirInm3'),
+(SELECT c.IdComprador FROM Compradores c JOIN Usuarios u ON c.IdUsuario=u.IdUsuario WHERE u.NombreUsuario='comp2'),
+115000, 2, 360, SYSTIMESTAMP - INTERVAL '16' DAY, 4, 0
+); -- 4=ContraOferta
+COMMIT;
+
+-- ===== Contraofertas (sobre oferta de comp2 en Inm3) =====
+INSERT INTO Contraofertas (IdOferta, Monto, PlazoDias, FechaHora, IdEstadoOferta, Eliminado)
+VALUES (
+(SELECT MAX(o.IdOferta) FROM Ofertas o
+WHERE o.IdPublicacion=(SELECT p.IdPublicacion FROM Publicaciones p JOIN Inmuebles i ON p.IdInmueble=i.IdInmueble WHERE i.Direccion='DirInm3')
+AND o.IdComprador=(SELECT c.IdComprador FROM Compradores c JOIN Usuarios u ON c.IdUsuario=u.IdUsuario WHERE u.NombreUsuario='comp2')),
+118000, 360, SYSTIMESTAMP - INTERVAL '15' DAY, 5, 0
+); -- 5=Pendiente
+
+-- Nueva contraoferta aceptada
+INSERT INTO Contraofertas (IdOferta, Monto, PlazoDias, FechaHora, IdEstadoOferta, Eliminado)
+VALUES (
+(SELECT MAX(o.IdOferta) FROM Ofertas o
+WHERE o.IdPublicacion=(SELECT p.IdPublicacion FROM Publicaciones p JOIN Inmuebles i ON p.IdInmueble=i.IdInmueble WHERE i.Direccion='DirInm3')
+AND o.IdComprador=(SELECT c.IdComprador FROM Compradores c JOIN Usuarios u ON c.IdUsuario=u.IdUsuario WHERE u.NombreUsuario='comp2')),
+118000, 360, SYSTIMESTAMP - INTERVAL '14' DAY, 2, 0
+); -- 2=Aceptada
+COMMIT;
+
+-- ===== Oferta final aceptada para cerrar venta (Inm3) =====
+INSERT INTO Ofertas (IdPublicacion, IdComprador, Monto, IdFormaPago, PlazoDias, FechaHora, IdEstadoOferta, Eliminado)
+VALUES (
+(SELECT p.IdPublicacion FROM Publicaciones p JOIN Inmuebles i ON p.IdInmueble=i.IdInmueble WHERE i.Direccion='DirInm3'),
+(SELECT c.IdComprador FROM Compradores c JOIN Usuarios u ON c.IdUsuario=u.IdUsuario WHERE u.NombreUsuario='comp2'),
+118000, 2, 360, SYSTIMESTAMP - INTERVAL '13' DAY, 2, 0
+); -- 2=Aceptada
+COMMIT;
+
+-- ===== Ofertas para Inm4 (DirInm4) y Inm5 (DirInm5) =====
+-- Inm4: oferta al contado aceptada por comp3
+INSERT INTO Ofertas (IdPublicacion, IdComprador, Monto, IdFormaPago, PlazoDias, FechaHora, IdEstadoOferta, Eliminado)
+VALUES (
+(SELECT p.IdPublicacion FROM Publicaciones p JOIN Inmuebles i ON p.IdInmueble=i.IdInmueble WHERE i.Direccion='DirInm4'),
+(SELECT c.IdComprador FROM Compradores c JOIN Usuarios u ON c.IdUsuario=u.IdUsuario WHERE u.NombreUsuario='comp3'),
+78000, 3, 0, SYSTIMESTAMP - INTERVAL '10' DAY, 2, 0
+); -- Contado, Aceptada
+
+-- Inm5: oferta pendiente de comp2
+INSERT INTO Ofertas (IdPublicacion, IdComprador, Monto, IdFormaPago, PlazoDias, FechaHora, IdEstadoOferta, Eliminado)
+VALUES (
+(SELECT p.IdPublicacion FROM Publicaciones p JOIN Inmuebles i ON p.IdInmueble=i.IdInmueble WHERE i.Direccion='DirInm5'),
+(SELECT c.IdComprador FROM Compradores c JOIN Usuarios u ON c.IdUsuario=u.IdUsuario WHERE u.NombreUsuario='comp2'),
+48000, 4, 0, SYSTIMESTAMP - INTERVAL '9' DAY, 5, 0
+); -- Pendiente
+
+-- Inm5: oferta rechazada de comp3
+INSERT INTO Ofertas (IdPublicacion, IdComprador, Monto, IdFormaPago, PlazoDias, FechaHora, IdEstadoOferta, Eliminado)
+VALUES (
+(SELECT p.IdPublicacion FROM Publicaciones p JOIN Inmuebles i ON p.IdInmueble=i.IdInmueble WHERE i.Direccion='DirInm5'),
+(SELECT c.IdComprador FROM Compradores c JOIN Usuarios u ON c.IdUsuario=u.IdUsuario WHERE u.NombreUsuario='comp3'),
+45000, 3, 0, SYSTIMESTAMP - INTERVAL '8' DAY, 3, 0
+); -- Rechazada
+COMMIT;
+
+-- ===== Préstamos para nuevos cierres =====
+INSERT INTO Prestamos (IdComprador, CodigoPrestamo, Descripcion, Eliminado)
+VALUES (
+(SELECT c.IdComprador FROM Compradores c JOIN Usuarios u ON c.IdUsuario=u.IdUsuario WHERE u.NombreUsuario='comp2'),
+'PR-0002', 'Préstamo hipotecario para Inm3', 0
+);
+COMMIT;
+
+-- ===== Ventas nuevas =====
+-- Venta 2: Inm3 financiado con PR-0002
+INSERT INTO Ventas (IdOfertaAceptada, IdPrestamo, IdFormaPago, FechaCierre, PrecioFinal, PlazoDias, Eliminado)
+VALUES (
+(SELECT MAX(o.IdOferta) FROM Ofertas o
+WHERE o.IdPublicacion=(SELECT p.IdPublicacion FROM Publicaciones p JOIN Inmuebles i ON p.IdInmueble=i.IdInmueble WHERE i.Direccion='DirInm3')
+AND o.IdEstadoOferta=2),
+(SELECT MAX(p.IdPrestamo) FROM Prestamos p JOIN Compradores c ON p.IdComprador=c.IdComprador
+JOIN Usuarios u ON c.IdUsuario=u.IdUsuario WHERE u.NombreUsuario='comp2' AND p.CodigoPrestamo='PR-0002'),
+2, SYSTIMESTAMP - INTERVAL '7' DAY, 118000, 360, 0
+);
+
+-- Venta 3: Inm4 al contado (sin préstamo)
+INSERT INTO Ventas (IdOfertaAceptada, IdPrestamo, IdFormaPago, FechaCierre, PrecioFinal, PlazoDias, Eliminado)
+VALUES (
+(SELECT MAX(o.IdOferta) FROM Ofertas o
+WHERE o.IdPublicacion=(SELECT p.IdPublicacion FROM Publicaciones p JOIN Inmuebles i ON p.IdInmueble=i.IdInmueble WHERE i.Direccion='DirInm4')
+AND o.IdEstadoOferta=2),
+NULL,
+3, SYSTIMESTAMP - INTERVAL '6' DAY, 78000, 0, 0
+);
+COMMIT;
+
+-- ===== Notificaciones adicionales =====
+-- Inm3: Oferta rechazada, contraofertas y aceptación
+INSERT INTO Notificaciones (IdOferta, FechaHora, Descripcion, Eliminado)
+VALUES (
+(SELECT MIN(o.IdOferta) FROM Ofertas o
+WHERE o.IdPublicacion=(SELECT p.IdPublicacion FROM Publicaciones p JOIN Inmuebles i ON p.IdInmueble=i.IdInmueble WHERE i.Direccion='DirInm3')
+AND o.IdEstadoOferta=3),
+SYSTIMESTAMP - INTERVAL '17' DAY + INTERVAL '10' MINUTE, 'Oferta rechazada en publicación de Inm3', 0
+);
+
+INSERT INTO Notificaciones (IdOferta, FechaHora, Descripcion, Eliminado)
+VALUES (
+(SELECT MAX(o.IdOferta) FROM Ofertas o
+WHERE o.IdPublicacion=(SELECT p.IdPublicacion FROM Publicaciones p JOIN Inmuebles i ON p.IdInmueble=i.IdInmueble WHERE i.Direccion='DirInm3')
+AND o.IdEstadoOferta=4),
+SYSTIMESTAMP - INTERVAL '16' DAY + INTERVAL '5' MINUTE, 'Nueva oferta con solicitud de contraoferta en Inm3', 0
+);
+
+INSERT INTO Notificaciones (IdContraoferta, FechaHora, Descripcion, Eliminado)
+VALUES (
+(SELECT MIN(c.IdContraoferta) FROM Contraofertas c
+WHERE c.IdOferta IN (
+SELECT o.IdOferta FROM Ofertas o
+WHERE o.IdPublicacion=(SELECT p.IdPublicacion FROM Publicaciones p JOIN Inmuebles i ON p.IdInmueble=i.IdInmueble WHERE i.Direccion='DirInm3')
+)),
+SYSTIMESTAMP - INTERVAL '15' DAY + INTERVAL '15' MINUTE, 'Contraoferta enviada (pendiente) para Inm3', 0
+);
+
+INSERT INTO Notificaciones (IdContraoferta, FechaHora, Descripcion, Eliminado)
+VALUES (
+(SELECT MAX(c.IdContraoferta) FROM Contraofertas c
+WHERE c.IdOferta IN (
+SELECT o.IdOferta FROM Ofertas o
+WHERE o.IdPublicacion=(SELECT p.IdPublicacion FROM Publicaciones p JOIN Inmuebles i ON p.IdInmueble=i.IdInmueble WHERE i.Direccion='DirInm3')
+)),
+SYSTIMESTAMP - INTERVAL '14' DAY + INTERVAL '20' MINUTE, 'Contraoferta aceptada para Inm3', 0
+);
+
+INSERT INTO Notificaciones (IdOferta, FechaHora, Descripcion, Eliminado)
+VALUES (
+(SELECT MAX(o.IdOferta) FROM Ofertas o
+WHERE o.IdPublicacion=(SELECT p.IdPublicacion FROM Publicaciones p JOIN Inmuebles i ON p.IdInmueble=i.IdInmueble WHERE i.Direccion='DirInm3')
+AND o.IdEstadoOferta=2),
+SYSTIMESTAMP - INTERVAL '13' DAY + INTERVAL '25' MINUTE, 'Oferta aceptada: se procede al cierre (Inm3)', 0
+);
+
+-- Inm4: oferta aceptada al contado
+INSERT INTO Notificaciones (IdOferta, FechaHora, Descripcion, Eliminado)
+VALUES (
+(SELECT MAX(o.IdOferta) FROM Ofertas o
+WHERE o.IdPublicacion=(SELECT p.IdPublicacion FROM Publicaciones p JOIN Inmuebles i ON p.IdInmueble=i.IdInmueble WHERE i.Direccion='DirInm4')
+AND o.IdEstadoOferta=2),
+SYSTIMESTAMP - INTERVAL '10' DAY + INTERVAL '12' MINUTE, 'Oferta al contado aceptada (Inm4)', 0
+);
+
+-- Inm5: ofertas pendiente y rechazada
+INSERT INTO Notificaciones (IdOferta, FechaHora, Descripcion, Eliminado)
+VALUES (
+(SELECT MIN(o.IdOferta) FROM Ofertas o
+WHERE o.IdPublicacion=(SELECT p.IdPublicacion FROM Publicaciones p JOIN Inmuebles i ON p.IdInmueble=i.IdInmueble WHERE i.Direccion='DirInm5')
+AND o.IdEstadoOferta=5),
+SYSTIMESTAMP - INTERVAL '9' DAY + INTERVAL '8' MINUTE, 'Oferta pendiente en Inm5', 0
+);
+
+INSERT INTO Notificaciones (IdOferta, FechaHora, Descripcion, Eliminado)
+VALUES (
+(SELECT MAX(o.IdOferta) FROM Ofertas o
+WHERE o.IdPublicacion=(SELECT p.IdPublicacion FROM Publicaciones p JOIN Inmuebles i ON p.IdInmueble=i.IdInmueble WHERE i.Direccion='DirInm5')
+AND o.IdEstadoOferta=3),
+SYSTIMESTAMP - INTERVAL '8' DAY + INTERVAL '4' MINUTE, 'Oferta rechazada en Inm5', 0
+);
+COMMIT;

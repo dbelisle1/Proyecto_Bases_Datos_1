@@ -35,7 +35,7 @@ namespace Proyecto_Inmuebles.Services
             //Vendedor
             if (userType == 2)
             {
-                navbarItems.Add(new NavItem { Text = "Inmuebles", Controller = "Inmuebles", Action = "IndexVendedor" });
+                navbarItems.Add(new NavItem { Text = "Inmuebles", Controller = "Inmuebles", Action = "Index" });
                 navbarItems.Add(new NavItem { Text = "Publicaciones", Controller = "Publicaciones", Action = "Index" });
                 navbarItems.Add(new NavItem { Text = "Ofertas", Controller = "Ofertas", Action = "Index" });
                 navbarItems.Add(new NavItem { Text = "Contraofertas", Controller = "Contraofertas", Action = "Index" });

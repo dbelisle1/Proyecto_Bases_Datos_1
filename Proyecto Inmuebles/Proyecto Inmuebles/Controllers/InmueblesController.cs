@@ -11,31 +11,9 @@ namespace Proyecto_Inmuebles.Controllers
 {
     public class InmueblesController : Controller
     {
+       
+
         public async Task<IActionResult> Index()
-        {
-            InmueblesViewModel viewModel = new InmueblesViewModel();
-
-            OracleDBConnection con = new OracleDBConnection();
-
-            var data = await con.SelectAsync(InmueblesQueries.SelectInmueblesQuery());
-
-            List<Inmuebles> InmueblesList = new List<Inmuebles>();
-            foreach (Inmuebles e in ModelParser.ParseInmuebles(data))
-            {
-                if (e.Eliminado == 0)
-                {
-                    InmueblesList.Add(e);
-                }
-            }
-
-            viewModel.InmueblesList = InmueblesList;
-
-            await llenarListas();
-
-            return View("Index", viewModel);
-        }
-
-        public async Task<IActionResult> IndexVendedor()
         {
             InmueblesViewModel viewModel = new InmueblesViewModel();
 
