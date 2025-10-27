@@ -128,8 +128,31 @@ namespace Proyecto_Inmuebles.Services
 
         }
 
-        
+        public static async Task<List<SelectListItem>> GetInmuebles()
+        {
 
+            OracleDBConnection con = new OracleDBConnection();
+
+            var data = await con.SelectAsync(InmueblesQueries.SelectInmueblesQuery());
+
+
+            List<SelectListItem> lInmueble = new List<SelectListItem>();
+
+
+            foreach (Inmuebles t in ModelParser.ParseInmuebles(data))
+            {
+                if (t.Eliminado == 0)
+                {
+                    lInmueble.Add(new SelectListItem { Text = t.Descripcion ?? "-", Value = t.IdInmueble.ToString() });
+                }
+
+            }
+
+            return lInmueble;
+
+        }
+
+       
 
     }
 }

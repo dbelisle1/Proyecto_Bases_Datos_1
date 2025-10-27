@@ -23,8 +23,32 @@
                 {
                 <tr>
                         <td>@item.IdPublicacion</td>
-                        <td>@item.IdInmueble</td>
-                        <td>@item.IdAgente</td>
+                        <td>
+                            @foreach (var it in (IEnumerable<SelectListItem>)ViewBag.listaInmuebles)
+                            {
+                                if (it.Value == item.IdInmueble.ToString())
+                                {
+                                    <span>@it.Text</span>
+                                    break;
+                                }
+
+
+
+                            }
+                        </td>
+                        <td>
+                            @foreach (var it in (IEnumerable<SelectListItem>)ViewBag.listaAgentes)
+                            {
+                                if (it.Value == item.IdAgente.ToString())
+                                {
+                                    <span>@it.Text</span>
+                                    break;
+                                }
+
+
+
+                            }
+                        </td>
                         <td>@item.FechaPublicacion</td>
                     
                 </tr>

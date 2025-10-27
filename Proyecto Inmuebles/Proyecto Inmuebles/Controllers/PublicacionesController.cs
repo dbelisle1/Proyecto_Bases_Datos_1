@@ -5,6 +5,7 @@ using Proyecto_Inmuebles.DBConnection;
 using Proyecto_Inmuebles.Models;
 using Proyecto_Inmuebles.Parser;
 using Proyecto_Inmuebles.Queries;
+using Proyecto_Inmuebles.Services;
 
 namespace Proyecto_Inmuebles.Controllers
 {
@@ -56,7 +57,7 @@ namespace Proyecto_Inmuebles.Controllers
 
             viewModel.PublicacionesList = PublicacionesList;
 
-
+            await llenarListas();
             return View(viewModel);
         }
 
@@ -132,6 +133,38 @@ namespace Proyecto_Inmuebles.Controllers
             return IdAgente;
 
         }
+
+        private async Task<bool> llenarListas()
+        {
+
+            // vendedores
+            List<SelectListItem> listaVendedores = await Utils.GetVendedores();
+
+            ViewBag.listaVendedores = listaVendedores;
+
+            // Compradores
+            List<SelectListItem> listaCompradores = await Utils.GetCompradores();
+
+            ViewBag.listaCompradores = listaCompradores;
+
+            // Agentes
+            List<SelectListItem> listaAgentes = await Utils.GetAgentes();
+
+            ViewBag.listaAgentes = listaAgentes;
+
+            // tiposInmueble
+            List<SelectListItem> listaTipos = await Utils.GetTiposInmueble();
+
+            ViewBag.listaTipos = listaTipos;
+
+            // Inmuebles
+            List<SelectListItem> listaInmuebles = await Utils.GetInmuebles();
+
+            ViewBag.listaInmuebles = listaInmuebles;
+
+            return true;
+        }
+
 
     }
 }

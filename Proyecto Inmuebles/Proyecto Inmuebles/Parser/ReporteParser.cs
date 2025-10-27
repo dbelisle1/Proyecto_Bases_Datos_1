@@ -204,5 +204,26 @@ namespace Proyecto_Inmuebles.Parser
             }
             return list;
         }
+
+
+        public static List<VentaFiltro> ParseVentaFiltro(List<Dictionary<string, object?>> data)
+        {
+            var list = new List<VentaFiltro>(data.Count);
+            foreach (var row in data)
+            {
+                list.Add(new VentaFiltro
+                {
+                    IdVenta = ToInt(Get(row, "IdVenta")),
+                    FechaCierre = ToStr(Get(row, "FechaCierre")),
+                    PrecioFinal = ToDec(Get(row, "PrecioFinal")),
+                    IdInmueble = ToInt(Get(row, "IdInmueble")),
+                    Direccion = Nn(ToStr(Get(row, "Direccion"))),
+                    IdTipoInmueble = ToInt(Get(row, "IdTipoInmueble")),
+                    IdVendedor = ToInt(Get(row, "IdVendedor")),
+                    IdComprador = ToInt(Get(row, "IdComprador"))
+                });
+            }
+            return list;
+        }
     }
 }

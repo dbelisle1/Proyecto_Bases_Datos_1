@@ -1,0 +1,35 @@
+﻿@model Proyecto_Inmuebles.Models.VentasViewModel
+@{
+    ViewData["Title"] = "Ventas";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p style="margin-top:12px;">
+    <div style="display:grid; gap:8px; max-width:700px;">
+
+        <form asp-controller="Ventas" asp-action="FiltrarVentasAccion" method="post" class="border rounded p-3">
+            <h5 class="mb-3">Ventas por Agente</h5>
+            <div class="row g-2 align-items-end">
+                <div class="col-sm-4">
+                    <label for="IdAgenteFiltro" class="form-label">IdComprador</label>
+
+                    <select id="IdAgenteFiltro" name="IdAgenteFiltro" class="form-control">
+                        @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.listaAgentes)
+                        {
+                            <option value="@item.Value">
+                                @item.Text
+
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <button type="submit" class="btn btn-sm btn-primary w-100">Buscar</button>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+</p>
+
+<a asp-controller="Home" asp-action="Index" class="btn btn-outline-info">@("<- Regresar")</a>

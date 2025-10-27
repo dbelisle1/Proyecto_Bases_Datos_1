@@ -30,8 +30,9 @@ namespace Proyecto_Inmuebles.Services
             {
                 navbarItems.Add(new NavItem { Text = "Perfil", Controller = "Account", Action = "VerAgenteUsr" });
                 navbarItems.Add(new NavItem { Text = "Publicaciones", Controller = "Publicaciones", Action = "Index" });
+                navbarItems.Add(new NavItem { Text = "Ofertas", Controller = "Ofertas", Action = "Index" });
+                navbarItems.Add(new NavItem { Text = "Contraofertas", Controller = "Contraofertas", Action = "Index" });
                 navbarItems.Add(new NavItem { Text = "Ventas", Controller = "Ventas", Action = "Index" });
-
             }
 
             //Vendedor
@@ -41,9 +42,9 @@ namespace Proyecto_Inmuebles.Services
 
                 navbarItems.Add(new NavItem { Text = "Inmuebles", Controller = "Inmuebles", Action = "Index" });
                 navbarItems.Add(new NavItem { Text = "Publicaciones", Controller = "Publicaciones", Action = "Index" });
-                navbarItems.Add(new NavItem { Text = "Ofertas", Controller = "Ofertas", Action = "Index" });
-                navbarItems.Add(new NavItem { Text = "Contraofertas", Controller = "Contraofertas", Action = "Index" });
                 navbarItems.Add(new NavItem { Text = "Notificaciones", Controller = "Notificaciones", Action = "Index" });
+                navbarItems.Add(new NavItem { Text = "Ventas", Controller = "Ventas", Action = "Index" });
+
             }
 
             //Comprador
