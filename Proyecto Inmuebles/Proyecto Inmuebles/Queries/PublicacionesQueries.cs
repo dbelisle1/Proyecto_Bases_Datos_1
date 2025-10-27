@@ -47,5 +47,12 @@
                       AND v.Eliminado = 0 AND a.Eliminado = 0
                     ORDER BY p.FechaPublicacion DESC";
         }
+
+
+        public static string InsertPublicacionQuery()
+        {
+            return @"INSERT INTO Publicaciones (IdInmueble, IdAgente, FechaPublicacion) 
+                        VALUES ( :IdInmueble, :IdAgente, :FechaPublicacion) RETURNING IdPublicacion INTO :IdSalida";
+        }
     }
 }

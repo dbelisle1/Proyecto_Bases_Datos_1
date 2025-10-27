@@ -1,0 +1,58 @@
+﻿@model Proyecto_Inmuebles.Models.PublicacionesVerViewModel
+@{
+    ViewData["Title"] = "Crear Publicacion";
+    string nombreInmueble = "";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p style="margin-top:12px;">
+    
+    <form asp-controller="Publicaciones" asp-action="CrearPublicacionAccion" method="post" style="display:grid; gap:8px; max-width:280px;">
+              
+
+        <label>IdInmueble</label>
+        <input asp-for="IdInmueble" autocomplete="IdInmueble" hidden />
+        @foreach (var it in (IEnumerable<SelectListItem>)ViewBag.listaInmuebles)
+        {
+            if (it.Value == Model.IdInmueble.ToString())
+            {
+                nombreInmueble = it.Text;
+                break;
+            }
+
+
+
+        }
+        <input value="@nombreInmueble" disabled />
+
+        <label for="IdAgente">IdAgente:</label>
+        <select id="IdAgente" name="IdAgente" class="form-control">
+            @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.listaAgentes)
+            {
+                if (item.Value == Model.IdInmueble.ToString())
+                {
+                    <option value="@item.Value" selected>
+                        @item.Text
+
+                    </option>
+                }
+                else
+                {
+                    <option value="@item.Value">
+                        @item.Text
+
+                    </option>
+                }
+
+            }
+        </select>
+
+        <label>FechaPublicacion</label>
+        <input asp-for="FechaPublicacion" autocomplete="FechaPublicacion" />
+
+        <button type="submit">Guardar</button>
+    </form>
+
+</p>
+
+<a asp-controller="Publicaciones" asp-action="Index" class="btn btn-outline-info">@("<- Regresar")</a>

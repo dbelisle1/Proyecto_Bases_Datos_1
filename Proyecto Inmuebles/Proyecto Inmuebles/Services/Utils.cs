@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Oracle.ManagedDataAccess.Client;
 using Proyecto_Inmuebles.DBConnection;
 using Proyecto_Inmuebles.Models;
 using Proyecto_Inmuebles.Parser;
 using Proyecto_Inmuebles.Queries;
+using System.Reflection;
 
 namespace Proyecto_Inmuebles.Services
 {
@@ -152,7 +154,20 @@ namespace Proyecto_Inmuebles.Services
 
         }
 
-       
+       public static async void Notificar()
+        {
+            OracleDBConnection con = new OracleDBConnection();
+
+            var IdSalida = OracleDBConnection.Out("IdSalida", OracleDbType.Int32);
+
+            var (cantidadAfectados, salidas) = await con.InsertAsync(NotificacionesQueries.Inser(),
+              new[] {
+                  OracleDBConnection.In("IdInmueble", model.IdInmueble),
+                  OracleDBConnection.In("IdAgente", model.IdAgente),
+                OracleDBConnection.In("FechaPublicacion", model.FechaPublicacion),
+                    IdSalida });
+
+        }
 
     }
 }

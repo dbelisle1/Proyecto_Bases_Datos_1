@@ -86,6 +86,13 @@
                                 Eliminar
                             </button>
                         </form>
+
+                            <a asp-controller="Publicaciones"
+                               asp-action="CrearPublicacion"
+                               asp-route-IdInmueble="@item.IdInmueble"
+                               class="btn btn-sm btn-outline-secondary me-1">
+                                Crear Publicacion
+                            </a>
                     </td>
                 </tr>
                 }

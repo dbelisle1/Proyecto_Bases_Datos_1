@@ -61,6 +61,33 @@ namespace Proyecto_Inmuebles.Controllers
             return View(viewModel);
         }
 
+        public async Task<IActionResult> CrearPublicacion(int IdInmueble)
+        {
+            PublicacionesVerViewModel model = new PublicacionesVerViewModel();
+            model.IdInmueble = IdInmueble;
+            model.FechaPublicacion = DateTime.Now;
+
+            await llenarListas();
+            return View("CrearPublicacion", model);
+        }
+
+
+        public async Task<IActionResult> CrearPublicacionAccion(PublicacionesVerViewModel model)
+        {
+            OracleDBConnection con = new OracleDBConnection();
+
+            var IdSalida = OracleDBConnection.Out("IdSalida", OracleDbType.Int32);
+
+            var (cantidadAfectados, salidas) = await con.InsertAsync(PublicacionesQueries.InsertPublicacionQuery(),
+              new[] {
+                OracleDBConnection.In("IdInmueble", model.IdInmueble),
+                OracleDBConnection.In("IdAgente", model.IdAgente),
+                OracleDBConnection.In("FechaPublicacion", model.FechaPublicacion),
+                    IdSalida });
+
+            return RedirectToAction("Index", "Publicaciones");
+        }
+
 
         private async Task<int> GetIdVendedor()
         {
