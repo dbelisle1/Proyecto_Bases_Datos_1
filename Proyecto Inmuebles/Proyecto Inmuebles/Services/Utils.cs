@@ -56,6 +56,54 @@ namespace Proyecto_Inmuebles.Services
 
         }
 
+        public static async Task<List<SelectListItem>> GetCompradores()
+        {
+
+            OracleDBConnection con = new OracleDBConnection();
+
+            var data = await con.SelectAsync(CompradoresQueries.SelectCompradoresQuery());
+
+
+            List<SelectListItem> lVendendores = new List<SelectListItem>();
+
+
+            foreach (Compradores t in ModelParser.ParseCompradores(data))
+            {
+                if (t.Eliminado == 0)
+                {
+                    lVendendores.Add(new SelectListItem { Text = t.Nombres, Value = t.IdComprador.ToString() });
+                }
+
+            }
+
+            return lVendendores;
+
+        }
+
+        public static async Task<List<SelectListItem>> GetAgentes()
+        {
+
+            OracleDBConnection con = new OracleDBConnection();
+
+            var data = await con.SelectAsync(AgentesQueries.SelectAgentesQuery());
+
+
+            List<SelectListItem> lVendendores = new List<SelectListItem>();
+
+
+            foreach (Agentes t in ModelParser.ParseAgentes(data))
+            {
+                if (t.Eliminado == 0)
+                {
+                    lVendendores.Add(new SelectListItem { Text = t.Nombres, Value = t.IdAgente.ToString() });
+                }
+
+            }
+
+            return lVendendores;
+
+        }
+
         public static async Task<List<SelectListItem>> GetTiposInmueble()
         {
 

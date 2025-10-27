@@ -1,0 +1,189 @@
+﻿@model Proyecto_Inmuebles.Models.ReportesViewModel
+@{
+    ViewData["Title"] = "Reportes";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="mt-3" style="display:grid; gap:16px; max-width:900px;">
+
+    <!-- R1) Formas de pago usadas por un comprador en sus ventas -->
+    <form asp-controller="Reportes" asp-action="Reporte1Accion" method="post" class="border rounded p-3">
+        <h5 class="mb-3">R1 - Formas de pago por comprador</h5>
+        <div class="row g-2 align-items-end">
+            <div class="col-sm-4">
+                <label for="R1_IdComprador" class="form-label">IdComprador</label>
+
+                <select id="R1_IdComprador" name="R1_IdComprador" class="form-control">
+                    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.listaCompradores)
+                    {
+                        <option value="@item.Value">
+                            @item.Text
+
+                        </option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <button type="submit" class="btn btn-sm btn-primary w-100">Ver reporte</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- R2) Inmuebles por vendedor y tipo -->
+    <form asp-controller="Reportes" asp-action="Reporte2Accion" method="post" class="border rounded p-3">
+        <h5 class="mb-3">R2 - Inmuebles por vendedor y tipo</h5>
+        <div class="row g-2 align-items-end">
+            <div class="col-sm-4">
+                <label for="R2_IdVendedor" class="form-label">IdVendedor</label>
+                <select id="R2_IdVendedor" name="R2_IdVendedor" class="form-control">
+                    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.listaVendedores)
+                    {
+                        <option value="@item.Value">
+                            @item.Text
+
+                        </option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-4">
+                <label for="R2_IdTipoInmueble" class="form-label">IdTipoInmueble</label>
+
+                <select id="R2_IdTipoInmueble" name="R2_IdTipoInmueble" class="form-control">
+                    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.listaTipos)
+                    {
+                        <option value="@item.Value">
+                            @item.Text
+
+                        </option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <button type="submit" class="btn btn-sm btn-primary w-100">Ver reporte</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- R3) Top interés por inmueble (OFERTAS.FECHAHORA) -->
+    <form asp-controller="Reportes" asp-action="Reporte3Accion" method="post" class="border rounded p-3">
+        <h5 class="mb-3">R3 - Top interés por inmueble</h5>
+        <div class="row g-2 align-items-end">
+            <div class="col-sm-4">
+                <label for="R3_StartDateOfertas" class="form-label">Inicio (YYYY-MM-DD)</label>
+                <input asp-for="R3_StartDateOfertas" id="R3_StartDateOfertas" class="form-control" type="date" />
+            </div>
+            <div class="col-sm-4">
+                <label for="R3_EndDateOfertas" class="form-label">Fin (YYYY-MM-DD)</label>
+                <input asp-for="R3_EndDateOfertas" id="R3_EndDateOfertas" class="form-control" type="date" />
+            </div>
+            <div class="col-sm-3">
+                <button type="submit" class="btn btn-sm btn-primary w-100">Ver reporte</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- R4) Resumen por vendedor (PUBLICACIONES.FECHAPUBLICACION opcional) -->
+    <form asp-controller="Reportes" asp-action="Reporte4Accion" method="post" class="border rounded p-3">
+        <h5 class="mb-3">R4 - Resumen por vendedor</h5>
+        <div class="row g-2 align-items-end">
+            <div class="col-sm-4">
+                <label for="R4_IdVendedor" class="form-label">IdVendedor</label>
+
+                <select id="R4_IdVendedor" name="R4_IdVendedor" class="form-control">
+                    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.listaVendedores)
+                    {
+                        <option value="@item.Value">
+                            @item.Text
+
+                        </option>
+                    }
+                </select>
+            </div>
+           
+            <div class="col-sm-3 mt-2">
+                <button type="submit" class="btn btn-sm btn-primary w-100">Ver reporte</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- R5) Ventas por agente y forma de pago (VENTAS.FECHACIERRE) -->
+    <form asp-controller="Reportes" asp-action="Reporte5Accion" method="post" class="border rounded p-3">
+        <h5 class="mb-3">R5 - Ventas por agente y forma de pago</h5>
+        <div class="row g-2 align-items-end">
+            <div class="col-sm-4">
+                <label for="R5_StartDateVentas" class="form-label">Inicio (YYYY-MM-DD)</label>
+                <input asp-for="R5_StartDateVentas" id="R5_StartDateVentas" class="form-control" type="date" />
+            </div>
+            <div class="col-sm-4">
+                <label for="R5_EndDateVentas" class="form-label">Fin (YYYY-MM-DD)</label>
+                <input asp-for="R5_EndDateVentas" id="R5_EndDateVentas" class="form-control" type="date" />
+            </div>
+            <div class="col-sm-3">
+                <button type="submit" class="btn btn-sm btn-primary w-100">Ver reporte</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- R6) Tasa de aceptación de ofertas por agente (OFERTAS.FECHAHORA) -->
+    <form asp-controller="Reportes" asp-action="Reporte6Accion" method="post" class="border rounded p-3">
+        <h5 class="mb-3">R6 - Tasa de aceptación por agente</h5>
+        <div class="row g-2 align-items-end">
+            <div class="col-sm-4">
+                <label for="R6_StartDateOfertas" class="form-label">Inicio (YYYY-MM-DD)</label>
+                <input asp-for="R6_StartDateOfertas" id="R6_StartDateOfertas" class="form-control" type="date" />
+            </div>
+            <div class="col-sm-4">
+                <label for="R6_EndDateOfertas" class="form-label">Fin (YYYY-MM-DD)</label>
+                <input asp-for="R6_EndDateOfertas" id="R6_EndDateOfertas" class="form-control" type="date" />
+            </div>
+            <div class="col-sm-3">
+                <button type="submit" class="btn btn-sm btn-primary w-100">Ver reporte</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- R7) Contraofertas: volumen y efectividad (CONTRAOFERTAS.FECHAHORA) -->
+    <form asp-controller="Reportes" asp-action="Reporte7Accion" method="post" class="border rounded p-3">
+        <h5 class="mb-3">R7 - Contraofertas por agente</h5>
+        <div class="row g-2 align-items-end">
+            <div class="col-sm-4">
+                <label for="R7_StartDateContraofertas" class="form-label">Inicio (YYYY-MM-DD)</label>
+                <input asp-for="R7_StartDateContraofertas" id="R7_StartDateContraofertas" class="form-control" type="date" />
+            </div>
+            <div class="col-sm-4">
+                <label for="R7_EndDateContraofertas" class="form-label">Fin (YYYY-MM-DD)</label>
+                <input asp-for="R7_EndDateContraofertas" id="R7_EndDateContraofertas" class="form-control" type="date" />
+            </div>
+            <div class="col-sm-3">
+                <button type="submit" class="btn btn-sm btn-primary w-100">Ver reporte</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- R8) Resultados por agente (All Time) + opcional rango en PUBLICACIONES.FECHAPUBLICACION -->
+    <form asp-controller="Reportes" asp-action="Reporte8Accion" method="post" class="border rounded p-3">
+        <h5 class="mb-3">R8 - Resultados por agente (All Time)</h5>
+        <div class="row g-2 align-items-end">
+            <div class="col-sm-4">
+                <label for="R8_IdAgente" class="form-label">IdAgente</label>
+                <select id="R8_IdAgente" name="R8_IdAgente" class="form-control">
+                    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.listaAgentes)
+                    {
+                        <option value="@item.Value">
+                            @item.Text
+
+                        </option>
+                    }
+                </select>
+            </div>
+           
+            <div class="col-sm-3 mt-2">
+                <button type="submit" class="btn btn-sm btn-primary w-100">Ver reporte</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<a asp-controller="Home" asp-action="Index" class="btn btn-outline-info mt-3">@("<- Regresar") </a>

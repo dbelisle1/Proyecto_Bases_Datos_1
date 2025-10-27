@@ -13,6 +13,7 @@ namespace Proyecto_Inmuebles.Services
 
             if ( userType == 99)
             {
+                navbarItems.Add(new NavItem { Text = "Reportes", Controller = "Reportes", Action = "Index" });
                 navbarItems.Add(new NavItem { Text = "TipoUsuario", Controller = "TipoUsuario", Action = "Index" });
                 navbarItems.Add(new NavItem { Text = "TiposInmueble", Controller = "TiposInmueble", Action = "Index" });
                 navbarItems.Add(new NavItem { Text = "FormasPago", Controller = "FormasPago", Action = "Index" });
