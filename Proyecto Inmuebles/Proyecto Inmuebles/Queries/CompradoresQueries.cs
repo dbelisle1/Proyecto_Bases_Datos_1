@@ -17,6 +17,10 @@
             return "SELECT * FROM Compradores";
         }
 
+        public static string SelectCompradoresByIdUsuarioQuery()
+        {
+            return "SELECT * FROM Compradores WHERE IdUsuario = :IdUsuario";
+        }
         public static string SelectCompradoresFiltroQuery()
         {
             return "SELECT * FROM Compradores WHERE IdComprador = :IdComprador";

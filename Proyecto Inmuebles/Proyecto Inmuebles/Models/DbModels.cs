@@ -171,4 +171,10 @@
         public  string Descripcion { get; set; } = null!;
         public  int Eliminado { get; set; }
     }
+
+    public class NotificacionesCompuesta : Notificaciones
+    {
+        public string Tipo { get; set; } = null!;
+
+    }
 }

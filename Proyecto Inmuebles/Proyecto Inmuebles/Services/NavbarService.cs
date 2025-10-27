@@ -9,10 +9,10 @@ namespace Proyecto_Inmuebles.Services
             List<NavItem> navbarItems = new List<NavItem>();
 
             navbarItems.Add(new NavItem { Text = "Home", Controller = "Home", Action = "Index" });
-            navbarItems.Add(new NavItem { Text = "Perfil", Controller = "Perfil", Action = "Index" });
 
             if ( userType == 99)
             {
+
                 navbarItems.Add(new NavItem { Text = "Reportes", Controller = "Reportes", Action = "Index" });
                 navbarItems.Add(new NavItem { Text = "TipoUsuario", Controller = "TipoUsuario", Action = "Index" });
                 navbarItems.Add(new NavItem { Text = "TiposInmueble", Controller = "TiposInmueble", Action = "Index" });
@@ -28,6 +28,8 @@ namespace Proyecto_Inmuebles.Services
             //Agente
             if (userType == 1)
             {
+                navbarItems.Add(new NavItem { Text = "Perfil", Controller = "Account", Action = "VerAgenteUsr" });
+
                 navbarItems.Add(new NavItem { Text = "Ventas", Controller = "Ventas", Action = "Index" });
                 navbarItems.Add(new NavItem { Text = "Publicaciones", Controller = "Publicaciones", Action = "Index" });
 
@@ -36,6 +38,8 @@ namespace Proyecto_Inmuebles.Services
             //Vendedor
             if (userType == 2)
             {
+                navbarItems.Add(new NavItem { Text = "Perfil", Controller = "Account", Action = "VerVendedorUsr" });
+
                 navbarItems.Add(new NavItem { Text = "Inmuebles", Controller = "Inmuebles", Action = "Index" });
                 navbarItems.Add(new NavItem { Text = "Publicaciones", Controller = "Publicaciones", Action = "Index" });
                 navbarItems.Add(new NavItem { Text = "Ofertas", Controller = "Ofertas", Action = "Index" });
@@ -46,6 +50,8 @@ namespace Proyecto_Inmuebles.Services
             //Comprador
             if (userType == 3)
             {
+                navbarItems.Add(new NavItem { Text = "Perfil", Controller = "Account", Action = "VerCompradorUsr" });
+
                 navbarItems.Add(new NavItem { Text = "Publicaciones", Controller = "Publicaciones", Action = "PublicacionesComprador" });
                 navbarItems.Add(new NavItem { Text = "Prestamos", Controller = "Prestamos", Action = "Index" });
                 navbarItems.Add(new NavItem { Text = "Notificaciones", Controller = "Notificaciones", Action = "Index" });

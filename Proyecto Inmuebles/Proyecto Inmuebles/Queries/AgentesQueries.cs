@@ -16,6 +16,10 @@
         {
             return "SELECT * FROM Agentes";
         }
+        public static string SelectAgentesByIdUsuarioQuery()
+        {
+            return "SELECT * FROM Agentes WHERE IdUsuario = :IdUsuario";
+        }
 
         public static string SelectAgenteFiltroQuery()
         {

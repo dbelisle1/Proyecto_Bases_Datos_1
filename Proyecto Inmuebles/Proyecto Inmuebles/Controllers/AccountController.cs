@@ -87,12 +87,30 @@ namespace Proyecto_Inmuebles.Controllers
 
             if (ok)
             {
-                TempData["RegisterMessage"] = "User registered. Please log in.";
+                TempData["RegisterMessage"] = "Usuario registrado.";
                 return RedirectToAction("Login");
             }
 
-            ModelState.AddModelError("", "Could not register user.");
+            ModelState.AddModelError("", "No se pudo registrar.");
             return View(model);
+        }
+
+        public async Task<IActionResult> VerAgenteUsr()
+        {
+           
+            return RedirectToAction("VerAgente", "Agentes", new { IdAgente = await GetIdAgente() });
+        }
+
+        public async Task<IActionResult> VerCompradorUsr()
+        {
+
+            return RedirectToAction("VerComprador", "Compradores", new { IdComprador = await GetIdComprador() });
+        }
+
+        public async Task<IActionResult> VerVendedorUsr()
+        {
+
+            return RedirectToAction("VerVendedor", "Vendedores", new { IdVendedor = await GetIdVendedor() });
         }
 
         private async Task<(bool, int, int)> validateLogin(string username, string password)
@@ -203,6 +221,80 @@ namespace Proyecto_Inmuebles.Controllers
 
 
             return true;
+
+        }
+
+
+
+        private async Task<int> GetIdVendedor()
+        {
+            if (HttpContext.Session.GetInt32(SessionKeys.UserType) == 99)
+            {
+                return 1; // Admin
+            }
+
+            OracleDBConnection con = new OracleDBConnection();
+
+            int? IdUsuario = HttpContext.Session.GetInt32(SessionKeys.IdUsuario);
+            int IdVendedor = -1;
+
+
+
+            var data = await con.SelectAsync(VendedoresQueries.SelectVendedoresByIdUsuarioQuery(), new[] { OracleDBConnection.In("IdUsuario", IdUsuario) });
+            if (data.Count > 0)
+            {
+                IdVendedor = int.Parse(data.FirstOrDefault()["IdVendedor"].ToString());
+            }
+
+            return IdVendedor;
+
+        }
+
+        private async Task<int> GetIdComprador()
+        {
+            if (HttpContext.Session.GetInt32(SessionKeys.UserType) == 99)
+            {
+                return 1; // Admin
+            }
+
+            OracleDBConnection con = new OracleDBConnection();
+
+            int? IdUsuario = HttpContext.Session.GetInt32(SessionKeys.IdUsuario);
+            int IdComprador = -1;
+
+
+
+            var data = await con.SelectAsync(CompradoresQueries.SelectCompradoresByIdUsuarioQuery(), new[] { OracleDBConnection.In("IdUsuario", IdUsuario) });
+            if (data.Count > 0)
+            {
+                IdComprador = int.Parse(data.FirstOrDefault()["IdComprador"].ToString());
+            }
+
+            return IdComprador;
+
+        }
+
+        private async Task<int> GetIdAgente()
+        {
+            if (HttpContext.Session.GetInt32(SessionKeys.UserType) == 99)
+            {
+                return 1; // Admin
+            }
+
+            OracleDBConnection con = new OracleDBConnection();
+
+            int? IdUsuario = HttpContext.Session.GetInt32(SessionKeys.IdUsuario);
+            int IdAgente = -1;
+
+
+
+            var data = await con.SelectAsync(AgentesQueries.SelectAgentesByIdUsuarioQuery(), new[] { OracleDBConnection.In("IdUsuario", IdUsuario) });
+            if (data.Count > 0)
+            {
+                IdAgente = int.Parse(data.FirstOrDefault()["IdAgente"].ToString());
+            }
+
+            return IdAgente;
 
         }
     }

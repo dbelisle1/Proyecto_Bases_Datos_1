@@ -677,6 +677,9 @@ SYSTIMESTAMP - INTERVAL '8' DAY + INTERVAL '4' MINUTE, 'Oferta rechazada en Inm5
 );
 COMMIT;
 
+
+
+
 ---------------REPORTES----------------\
 
 -- Formas de pago usadas por un comprador en sus ventas

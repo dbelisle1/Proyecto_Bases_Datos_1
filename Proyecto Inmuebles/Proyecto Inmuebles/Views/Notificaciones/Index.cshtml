@@ -1,0 +1,36 @@
+﻿@model Proyecto_Inmuebles.Models.NotificacionesViewModel
+@{
+    ViewData["Title"] = "Notificaciones";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p style="margin-top:12px;">
+    <div style="display:grid; gap:8px; max-width:700px;">
+
+
+
+        <table class="table table-striped table-bordered table-sm">
+            <thead>
+                <tr>
+                    <th>IdNotificacion</th>
+                    <th>Tipo</th>
+                    <th>Descripcion</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                @foreach (var item in Model.NotificacionesList)
+                {
+                <tr>
+                        <td>@item.IdNotificacion</td>
+                        <td>@item.Tipo</td>
+                        <td>@item.Descripcion</td>
+                    
+                </tr>
+                }
+            </tbody>
+        </table>
+        
+    </div>
+</p>
+
+<a asp-controller="Home" asp-action="Index" class="btn btn-outline-info">@("<- Regresar")</a>

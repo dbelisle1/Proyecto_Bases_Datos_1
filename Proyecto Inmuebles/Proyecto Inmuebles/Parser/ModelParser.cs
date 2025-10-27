@@ -314,6 +314,25 @@ namespace Proyecto_Inmuebles.Parser
             return list;
         }
 
+        public static List<NotificacionesCompuesta> ParseNotificacionesCompuesta(List<Dictionary<string, object?>> data)
+        {
+            var list = new List<NotificacionesCompuesta>(data.Count);
+            foreach (var row in data)
+            {
+                list.Add(new NotificacionesCompuesta
+                {
+                    IdNotificacion = ToInt(Get(row, "IdNotificacion")),
+                    IdOferta = ToIntN(Get(row, "IdOferta")),
+                    IdContraoferta = ToIntN(Get(row, "IdContraoferta")),
+                    FechaHora = ToDate(Get(row, "FechaHora")),
+                    Descripcion = Nn(ToStr(Get(row, "Descripcion"))),
+                    Tipo = Nn(ToStr(Get(row, "Tipo"))),
+                    Eliminado = ToInt(Get(row, "Eliminado"))
+                });
+            }
+            return list;
+        }
+
         private static object? Get(Dictionary<string, object?> row, string key)
         {
             if (row.TryGetValue(key, out var v)) return v;
