@@ -29,5 +29,23 @@
                     ORDER BY p.FechaPublicacion DESC";
         }
 
+        public static string SelectPublicacionesByIdCondicion()
+        {
+            return @"
+                SELECT
+                      p.IdPublicacion, p.FechaPublicacion,
+                      i.IdInmueble, i.Direccion, i.Precio, i.IdTipoInmueble,
+                      v.IdVendedor, v.Nombres AS VendedorNombre, v.Apellidos AS VendedorApellidos,
+                      a.IdAgente, a.Codigo AS AgenteCodigo, a.Nombres AS AgenteNombre, a.Apellidos AS AgenteApellidos
+                    FROM Publicaciones p
+                    JOIN Inmuebles i  ON i.IdInmueble = p.IdInmueble
+                    JOIN InmuebleCondicion ic ON ic.IdInmueble = i.IdInmueble
+                    JOIN Vendedores v  ON v.IdVendedor = i.IdVendedor
+                    JOIN Agentes a     ON a.IdAgente = p.IdAgente
+                    WHERE ic.IdCondicion = :IdCondicion
+                      AND p.Eliminado = 0 AND i.Eliminado = 0 AND ic.Eliminado = 0
+                      AND v.Eliminado = 0 AND a.Eliminado = 0
+                    ORDER BY p.FechaPublicacion DESC";
+        }
     }
 }

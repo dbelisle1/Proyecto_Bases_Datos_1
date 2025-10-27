@@ -225,5 +225,30 @@ namespace Proyecto_Inmuebles.Parser
             }
             return list;
         }
+
+        public static List<PublicacionPorCondicion> ParsePublicacionesPorCondicion(List<Dictionary<string, object?>> data)
+        {
+            var list = new List<PublicacionPorCondicion>(data.Count);
+            foreach (var row in data)
+            {
+                list.Add(new PublicacionPorCondicion
+                {
+                    IdPublicacion = ToInt(Get(row, "IdPublicacion")),
+                    FechaPublicacion = ToStr(Get(row, "FechaPublicacion")),
+                    IdInmueble = ToInt(Get(row, "IdInmueble")),
+                    Direccion = Nn(ToStr(Get(row, "Direccion"))),
+                    Precio = ToDec(Get(row, "Precio")),
+                    IdTipoInmueble = ToInt(Get(row, "IdTipoInmueble")),
+                    IdVendedor = ToInt(Get(row, "IdVendedor")),
+                    VendedorNombre = Nn(ToStr(Get(row, "VendedorNombre"))),
+                    VendedorApellidos = Nn(ToStr(Get(row, "VendedorApellidos"))),
+                    IdAgente = ToInt(Get(row, "IdAgente")),
+                    AgenteCodigo = Nn(ToStr(Get(row, "AgenteCodigo"))),
+                    AgenteNombre = Nn(ToStr(Get(row, "AgenteNombre"))),
+                    AgenteApellidos = Nn(ToStr(Get(row, "AgenteApellidos")))
+                });
+            }
+            return list;
+        }
     }
 }

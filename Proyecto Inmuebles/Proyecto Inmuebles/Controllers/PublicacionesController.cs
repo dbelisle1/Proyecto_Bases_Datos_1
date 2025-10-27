@@ -134,6 +134,27 @@ namespace Proyecto_Inmuebles.Controllers
 
         }
 
+        [HttpPost]
+        public async Task<IActionResult> FiltrarPublicacionesAccion(PublicacionesViewModel model)
+        {
+            var viewModel = model ?? new PublicacionesViewModel();
+
+            OracleDBConnection con = new OracleDBConnection();
+            var data = await con.SelectAsync(
+                PublicacionesQueries.SelectPublicacionesByIdCondicion(),
+                new[] { OracleDBConnection.In("IdCondicion", viewModel.IdCondicionFiltro) }
+            );
+
+            var list = new List<PublicacionPorCondicion>();
+            foreach (var row in ReporteParser.ParsePublicacionesPorCondicion(data))
+                list.Add(row);
+
+            viewModel.PublicacionesFiltroList = list;
+
+            await llenarListas();
+            return View("FiltrarPublicaciones", viewModel);
+        }
+
         private async Task<bool> llenarListas()
         {
 
@@ -161,6 +182,11 @@ namespace Proyecto_Inmuebles.Controllers
             List<SelectListItem> listaInmuebles = await Utils.GetInmuebles();
 
             ViewBag.listaInmuebles = listaInmuebles;
+
+            // Inmuebles
+            List<SelectListItem> listaCondiciones = await Utils.GetCondiciones();
+
+            ViewBag.listaCondiciones = listaCondiciones;
 
             return true;
         }
