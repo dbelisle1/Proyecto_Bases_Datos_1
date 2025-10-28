@@ -2,7 +2,7 @@
 {
     public class PublicacionesViewModel : Publicaciones
     {
-        public List<Publicaciones> PublicacionesList {  get; set; }
+    
         public List<PublicacionPorCondicion> PublicacionesFiltroList {  get; set; }
         public bool esComprador { get; set; } = false;
         public int IdTipoUsuario { get; set; } = 0;

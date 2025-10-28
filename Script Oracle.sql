@@ -141,14 +141,13 @@ CREATE TABLE InmuebleCondicion (
 
 CREATE TABLE Publicaciones (
   IdPublicacion    NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  IdInmueble       NUMBER NOT NULL,
+  IdInmueble       NUMBER UNIQUE NOT NULL,
   IdAgente         NUMBER NOT NULL,
   FechaPublicacion TIMESTAMP(0) NOT NULL,
   Eliminado        NUMBER(1) DEFAULT 0 NOT NULL CHECK (Eliminado IN (0,1)),
   CONSTRAINT fk_publicaciones_inmuebles FOREIGN KEY (IdInmueble) REFERENCES Inmuebles(IdInmueble),
   CONSTRAINT fk_publicaciones_agentes   FOREIGN KEY (IdAgente)   REFERENCES Agentes(IdAgente)
 );
-CREATE UNIQUE INDEX ux_publicaciones_inmueble ON Publicaciones(IdInmueble);
 
 
 CREATE TABLE Ofertas (
@@ -782,38 +781,7 @@ WHERE a.IDAGENTE = 3--(:IdAgente IS NULL OR a.IDAGENTE = :IdAgente)
 GROUP BY a.CODIGO
 ORDER BY INGRESOS DESC NULLS LAST;
 
-Select * from inmuebles
-Select * from publicaciones
-Select * from ofertas
-Select * from notificaciones
-
-SELECT n.IdNotificacion,
-                       'Oferta' AS Tipo,
-                       n.FechaHora,
-                       n.Descripcion,
-                       n.IdOferta,
-                       n.IdContraoferta
-                FROM Notificaciones n
-                JOIN Ofertas o          ON n.IdOferta = o.IdOferta
-                JOIN Publicaciones p    ON p.IdPublicacion = o.IdPublicacion
-                JOIN Inmuebles i        ON i.IdInmueble = p.IdInmueble
-                WHERE i.IdVendedor = 2
-                  AND n.Eliminado = 0 AND o.Eliminado = 0 AND p.Eliminado = 0 AND i.Eliminado = 0
-
-                UNION ALL
-
-                SELECT n.IdNotificacion,
-                       'Contraoferta' AS Tipo,
-                       n.FechaHora,
-                       n.Descripcion,
-                       n.IdOferta,
-                       n.IdContraoferta
-                FROM Notificaciones n
-                JOIN Contraofertas co   ON n.IdContraoferta = co.IdContraoferta
-                JOIN Ofertas o          ON o.IdOferta = co.IdOferta
-                JOIN Publicaciones p    ON p.IdPublicacion = o.IdPublicacion
-                JOIN Inmuebles i        ON i.IdInmueble = p.IdInmueble
-                WHERE i.IdVendedor = 2
-                  AND n.Eliminado = 0 AND co.Eliminado = 0 AND o.Eliminado = 0
-                  AND p.Eliminado = 0 AND i.Eliminado = 0
-                ORDER BY FechaHora DESC
+Select * from inmuebles;
+Select * from publicaciones;
+Select * from ofertas;
+Select * from notificaciones;

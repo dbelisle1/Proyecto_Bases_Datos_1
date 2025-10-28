@@ -28,7 +28,7 @@ namespace Proyecto_Inmuebles.Queries
         
         }
 
-        //Inmuebles por vendedor y tipo(con tipo)
+        //Inmuebles por vendedor y tipo
         public static string InmueblesVendendorTipoQuery()
         {
 
@@ -124,7 +124,7 @@ namespace Proyecto_Inmuebles.Queries
 
 
 
-        // Contraofertas: volumen y efectividad por agente
+        // Contraofertas Efectivas por agente
         public static string ContraOfertaEfectividadQuery()
         {
 

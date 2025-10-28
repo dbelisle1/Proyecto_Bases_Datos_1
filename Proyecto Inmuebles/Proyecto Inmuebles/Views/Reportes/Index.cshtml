@@ -65,7 +65,7 @@
         </div>
     </form>
 
-    <!-- R3) Top interés por inmueble (OFERTAS.FECHAHORA) -->
+    <!-- R3) Top interés por inmueble -->
     <form asp-controller="Reportes" asp-action="Reporte3Accion" method="post" class="border rounded p-3">
         <h5 class="mb-3">R3 - Top interés por inmueble</h5>
         <div class="row g-2 align-items-end">
@@ -83,7 +83,7 @@
         </div>
     </form>
 
-    <!-- R4) Resumen por vendedor (PUBLICACIONES.FECHAPUBLICACION opcional) -->
+    <!-- R4) Resumen por vendedor-->
     <form asp-controller="Reportes" asp-action="Reporte4Accion" method="post" class="border rounded p-3">
         <h5 class="mb-3">R4 - Resumen por vendedor</h5>
         <div class="row g-2 align-items-end">
@@ -107,7 +107,7 @@
         </div>
     </form>
 
-    <!-- R5) Ventas por agente y forma de pago (VENTAS.FECHACIERRE) -->
+    <!-- R5) Ventas por agente y forma de pago -->
     <form asp-controller="Reportes" asp-action="Reporte5Accion" method="post" class="border rounded p-3">
         <h5 class="mb-3">R5 - Ventas por agente y forma de pago</h5>
         <div class="row g-2 align-items-end">
@@ -125,7 +125,7 @@
         </div>
     </form>
 
-    <!-- R6) Tasa de aceptación de ofertas por agente (OFERTAS.FECHAHORA) -->
+    <!-- R6) Tasa de aceptación de ofertas por agente -->
     <form asp-controller="Reportes" asp-action="Reporte6Accion" method="post" class="border rounded p-3">
         <h5 class="mb-3">R6 - Tasa de aceptación por agente</h5>
         <div class="row g-2 align-items-end">
@@ -143,9 +143,9 @@
         </div>
     </form>
 
-    <!-- R7) Contraofertas: volumen y efectividad (CONTRAOFERTAS.FECHAHORA) -->
+    <!-- R7) Contraofertas efectivas por agente -->
     <form asp-controller="Reportes" asp-action="Reporte7Accion" method="post" class="border rounded p-3">
-        <h5 class="mb-3">R7 - Contraofertas por agente</h5>
+        <h5 class="mb-3">R7 - Contraofertas efectivas por agente</h5>
         <div class="row g-2 align-items-end">
             <div class="col-sm-4">
                 <label for="R7_StartDateContraofertas" class="form-label">Inicio (YYYY-MM-DD)</label>
@@ -161,7 +161,7 @@
         </div>
     </form>
 
-    <!-- R8) Resultados por agente (All Time) + opcional rango en PUBLICACIONES.FECHAPUBLICACION -->
+    <!-- R8) Resultados por agente (All Time) -->
     <form asp-controller="Reportes" asp-action="Reporte8Accion" method="post" class="border rounded p-3">
         <h5 class="mb-3">R8 - Resultados por agente (All Time)</h5>
         <div class="row g-2 align-items-end">

@@ -1,6 +1,7 @@
 ﻿@model Proyecto_Inmuebles.Models.PublicacionesViewModel
 @{
     ViewData["Title"] = "Publicaciones";
+    var rows = Model?.PublicacionesFiltroList ?? new List<Proyecto_Inmuebles.Models.PublicacionPorCondicion>();
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -64,62 +65,110 @@
 
         <table class="table table-striped table-bordered table-sm">
             <thead>
-                <tr>
-                    <th>IdPublicacion</th>
-                    <th>IdInmueble</th>
-                    <th>IdAgente</th>
+
+
+                <tr class="text-center">
+                    <th>IdPublicacion </th>
                     <th>FechaPublicacion</th>
+                    <th>IdInmueble </th>
+                    <th>Direccion </th>
+                    <th>Precio </th>
+                    <th>IdTipoInmueble </th>
+                    <th>IdVendedor</th>
+                    <th>IdAgente</th>
                     @if (Model.IdTipoUsuario == 3)
                     {
-                        <th class="text-center" style="width: 700px;">Acciones</th>
+                        <th class="text-center" >Acciones</th>
                     }
                 </tr>
             </thead>
             <tbody class="text-center">
-                @foreach (var item in Model.PublicacionesList)
+                @if (!rows.Any())
                 {
-                <tr>
-                        <td>@item.IdPublicacion</td>
-                        <td>
-                            @foreach (var it in (IEnumerable<SelectListItem>)ViewBag.listaInmuebles)
-                            {
-                                if (it.Value == item.IdInmueble.ToString())
-                                {
-                                    <span>@it.Text</span>
-                                    break;
-                                }
-
-
-
-                            }
-                        </td>
-                        <td>
-                            @foreach (var it in (IEnumerable<SelectListItem>)ViewBag.listaAgentes)
-                            {
-                                if (it.Value == item.IdAgente.ToString())
-                                {
-                                    <span>@it.Text</span>
-                                    break;
-                                }
-
-
-
-                            }
-                        </td>
-                        <td>@item.FechaPublicacion</td>
-                        @if (Model.IdTipoUsuario == 3)
-                        {
+                    <tr>
+                        <td colspan="8" class="text-muted">Sin datos</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var item in rows)
+                    {
+                        <tr>
+                            <td>@item.IdPublicacion</td>
+                            <td>@(item.FechaPublicacion ?? "—")</td>
                             <td>
-                                <a asp-controller="Ofertas"
-                                   asp-action="CrearOferta"
-                                   asp-route-IdPublicacion="@item.IdPublicacion"
-                                   class="btn btn-sm btn-outline-secondary me-1">
-                                    Ofertar
-                                </a>
+                                @foreach (var it in (IEnumerable<SelectListItem>)ViewBag.listaInmuebles)
+                                {
+                                    if (it.Value == item.IdInmueble.ToString())
+                                    {
+                                        <span>@it.Text</span>
+                                        break;
+                                    }
+
+
+
+                                }
+
                             </td>
-                          
-                        }
-                </tr>
+                            <td>@item.Direccion</td>
+                            <td>@item.Precio</td>
+                            <td>
+                                @foreach (var it in (IEnumerable<SelectListItem>)ViewBag.listaTipos)
+                                {
+                                    if (it.Value == item.IdTipoInmueble.ToString())
+                                    {
+                                        <span>@it.Text</span>
+                                        break;
+                                    }
+
+
+
+                                }
+
+                            </td>
+                            <td>
+                                @foreach (var it in (IEnumerable<SelectListItem>)ViewBag.listaVendedores)
+                                {
+                                    if (it.Value == item.IdVendedor.ToString())
+                                    {
+                                        <span>@it.Text</span>
+                                        break;
+                                    }
+
+
+
+                                }
+
+                            </td>
+                            <td>
+                                @foreach (var it in (IEnumerable<SelectListItem>)ViewBag.listaAgentes)
+                                {
+                                    if (it.Value == item.IdAgente.ToString())
+                                    {
+                                        <span>@it.Text</span>
+                                        break;
+                                    }
+
+
+
+                                }
+
+                            </td>
+
+                            @if (Model.IdTipoUsuario == 3)
+                            {
+                                <td>
+                                    <a asp-controller="Ofertas"
+                                       asp-action="CrearOferta"
+                                       asp-route-IdPublicacion="@item.IdPublicacion"
+                                       class="btn btn-sm btn-outline-secondary me-1">
+                                        Ofertar
+                                    </a>
+                                </td>
+
+                            }
+                        </tr>
+                    }
                 }
             </tbody>
         </table>

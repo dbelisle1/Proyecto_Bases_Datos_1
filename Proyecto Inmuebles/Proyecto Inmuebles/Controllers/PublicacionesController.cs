@@ -46,16 +46,12 @@ namespace Proyecto_Inmuebles.Controllers
             }
 
 
-            List<Publicaciones> PublicacionesList = new List<Publicaciones>();
-            foreach (Publicaciones e in ModelParser.ParsePublicaciones(data))
-            {
-                if (e.Eliminado == 0)
-                {
-                    PublicacionesList.Add(e);
-                }
-            }
+            var list = new List<PublicacionPorCondicion>();
+            foreach (var row in ReporteParser.ParsePublicacionesPorCondicion(data))
+                list.Add(row);
 
-            viewModel.PublicacionesList = PublicacionesList;
+            viewModel.PublicacionesFiltroList = list;
+
             viewModel.IdTipoUsuario = userType ?? 0;
             await llenarListas();
             return View(viewModel);
@@ -86,6 +82,31 @@ namespace Proyecto_Inmuebles.Controllers
                     IdSalida });
 
             return RedirectToAction("Index", "Publicaciones");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> FiltrarPublicacionesAccion(PublicacionesViewModel model)
+        {
+            var viewModel = model ?? new PublicacionesViewModel();
+
+            OracleDBConnection con = new OracleDBConnection();
+            var data = await con.SelectAsync(
+                PublicacionesQueries.SelectPublicacionesByIdCondicion(),
+                new[] { OracleDBConnection.In("IdCondicion", viewModel.IdCondicionFiltro),
+                OracleDBConnection.In("IdTipoInmueble", viewModel.IdTipoInmuebleFiltro),
+                OracleDBConnection.In("PrecioMin", viewModel.PrecioMinFiltro),
+                OracleDBConnection.In("PrecioMax", viewModel.PrecioMaxFiltro),
+                OracleDBConnection.In("Direccion", (string.IsNullOrEmpty(viewModel.DireccionFiltro)? null : viewModel.DireccionFiltro))}
+            );
+
+            var list = new List<PublicacionPorCondicion>();
+            foreach (var row in ReporteParser.ParsePublicacionesPorCondicion(data))
+                list.Add(row);
+
+            viewModel.PublicacionesFiltroList = list;
+
+            await llenarListas();
+            return View("FiltrarPublicaciones", viewModel);
         }
 
 
@@ -161,30 +182,7 @@ namespace Proyecto_Inmuebles.Controllers
 
         }
 
-        [HttpPost]
-        public async Task<IActionResult> FiltrarPublicacionesAccion(PublicacionesViewModel model)
-        {
-            var viewModel = model ?? new PublicacionesViewModel();
-
-            OracleDBConnection con = new OracleDBConnection();
-            var data = await con.SelectAsync(
-                PublicacionesQueries.SelectPublicacionesByIdCondicion(),
-                new[] { OracleDBConnection.In("IdCondicion", viewModel.IdCondicionFiltro),
-                OracleDBConnection.In("IdTipoInmueble", viewModel.IdTipoInmuebleFiltro),
-                OracleDBConnection.In("PrecioMin", viewModel.PrecioMinFiltro),
-                OracleDBConnection.In("PrecioMax", viewModel.PrecioMaxFiltro),
-                OracleDBConnection.In("Direccion", (string.IsNullOrEmpty(viewModel.DireccionFiltro)? null : viewModel.DireccionFiltro))}
-            );
-
-            var list = new List<PublicacionPorCondicion>();
-            foreach (var row in ReporteParser.ParsePublicacionesPorCondicion(data))
-                list.Add(row);
-
-            viewModel.PublicacionesFiltroList = list;
-
-            await llenarListas();
-            return View("FiltrarPublicaciones", viewModel);
-        }
+        
 
         private async Task<bool> llenarListas()
         {
