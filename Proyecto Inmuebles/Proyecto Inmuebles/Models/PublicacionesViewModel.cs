@@ -6,6 +6,7 @@
         public List<PublicacionPorCondicion> PublicacionesFiltroList {  get; set; }
         public bool esComprador { get; set; } = false;
         public int IdCondicionFiltro { get; set; } = 0;
+        public int IdTipoUsuario { get; set; } = 0;
     }
 
     public class PublicacionesVerViewModel : Publicaciones

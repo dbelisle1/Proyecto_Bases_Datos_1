@@ -1,0 +1,55 @@
+﻿@model Proyecto_Inmuebles.Models.OfertasVerViewModel
+@{
+    ViewData["Title"] = "Crear Oferta";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p style="margin-top:12px;">
+    
+    <form asp-controller="Ofertas" asp-action="CrearOfertaAccion" method="post" style="display:grid; gap:8px; max-width:280px;">
+              
+
+        <label>IdPublicacion</label>
+        <input asp-for="IdPublicacion" autocomplete="IdPublicacion" hidden />
+        <input asp-for="IdComprador" autocomplete="IdComprador" hidden />
+        <input value="@Model.IdPublicacion" disabled />
+        
+
+        
+        <label>Monto</label>
+        <input asp-for="Monto" autocomplete="Monto" />
+
+        <label for="IdFormaPago">IdAgente:</label>
+        <select id="IdFormaPago" name="IdFormaPago" class="form-control">
+            @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.listaFormasPago)
+            {
+                if (item.Value == Model.IdFormaPago.ToString())
+                {
+                    <option value="@item.Value" selected>
+                        @item.Text
+
+                    </option>
+                }
+                else
+                {
+                    <option value="@item.Value">
+                        @item.Text
+
+                    </option>
+                }
+
+            }
+        </select>
+
+        <label>PlazoDias</label>
+        <input asp-for="PlazoDias" autocomplete="PlazoDias" />
+
+        <label>FechaHora</label>
+        <input asp-for="FechaHora" autocomplete="FechaHora" />
+
+        <button type="submit">Guardar</button>
+    </form>
+
+</p>
+
+<a asp-controller="Publicaciones" asp-action="Index" class="btn btn-outline-info">@("<- Regresar")</a>

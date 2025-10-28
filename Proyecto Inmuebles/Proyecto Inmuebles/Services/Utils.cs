@@ -154,20 +154,44 @@ namespace Proyecto_Inmuebles.Services
 
         }
 
-       public static async void Notificar()
+        public static async Task<List<SelectListItem>> GetFormasPago()
         {
+
             OracleDBConnection con = new OracleDBConnection();
 
-            var IdSalida = OracleDBConnection.Out("IdSalida", OracleDbType.Int32);
+            var data = await con.SelectAsync(FormasPagoQueries.SelectFormasPagoQuery());
 
-            var (cantidadAfectados, salidas) = await con.InsertAsync(NotificacionesQueries.Inser(),
-              new[] {
-                  OracleDBConnection.In("IdInmueble", model.IdInmueble),
-                  OracleDBConnection.In("IdAgente", model.IdAgente),
-                OracleDBConnection.In("FechaPublicacion", model.FechaPublicacion),
-                    IdSalida });
+
+            List<SelectListItem> lFormasPago = new List<SelectListItem>();
+
+
+            foreach (FormasPago t in ModelParser.ParseFormasPago(data))
+            {
+                if (t.Eliminado == 0)
+                {
+                    lFormasPago.Add(new SelectListItem { Text = t.NombreFormaPago ?? "-", Value = t.IdFormaPago.ToString() });
+                }
+
+            }
+
+            return lFormasPago;
 
         }
+
+        //public static async void Notificar()
+        // {
+        //     OracleDBConnection con = new OracleDBConnection();
+
+        //     var IdSalida = OracleDBConnection.Out("IdSalida", OracleDbType.Int32);
+
+        //     var (cantidadAfectados, salidas) = await con.InsertAsync(NotificacionesQueries.Inser(),
+        //       new[] {
+        //           OracleDBConnection.In("IdInmueble", model.IdInmueble),
+        //           OracleDBConnection.In("IdAgente", model.IdAgente),
+        //         OracleDBConnection.In("FechaPublicacion", model.FechaPublicacion),
+        //             IdSalida });
+
+        // }
 
     }
 }

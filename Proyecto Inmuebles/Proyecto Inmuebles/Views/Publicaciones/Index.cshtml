@@ -36,6 +36,10 @@
                     <th>IdInmueble</th>
                     <th>IdAgente</th>
                     <th>FechaPublicacion</th>
+                    @if (Model.IdTipoUsuario == 3)
+                    {
+                        <th class="text-center" style="width: 700px;">Acciones</th>
+                    }
                 </tr>
             </thead>
             <tbody class="text-center">
@@ -70,7 +74,18 @@
                             }
                         </td>
                         <td>@item.FechaPublicacion</td>
-                    
+                        @if (Model.IdTipoUsuario == 3)
+                        {
+                            <td>
+                                <a asp-controller="Ofertas"
+                                   asp-action="CrearOferta"
+                                   asp-route-IdPublicacion="@item.IdPublicacion"
+                                   class="btn btn-sm btn-outline-secondary me-1">
+                                    Ofertar
+                                </a>
+                            </td>
+                          
+                        }
                 </tr>
                 }
             </tbody>

@@ -9,11 +9,12 @@ using Proyecto_Inmuebles.Services;
 
 namespace Proyecto_Inmuebles.Controllers
 {
-    public class PublicacionesController : Controller
+    public class OfertasController : Controller
     {
         public async Task<IActionResult> Index()
         {
-            PublicacionesViewModel viewModel = new PublicacionesViewModel();
+
+            OfertasViewModel viewModel = new OfertasViewModel();
 
             OracleDBConnection con = new OracleDBConnection();
 
@@ -24,68 +25,57 @@ namespace Proyecto_Inmuebles.Controllers
             //Agente
             if (userType == 1)
             {
-               data = await con.SelectAsync(PublicacionesQueries.SelectPublicacionesIdAgenteQuery(),
-                   new[] { OracleDBConnection.In("IdAgente", await GetIdAgente()) });
-
-            }
-
-            //Vendedor
-            if (userType == 2)
-            {
-                data = await con.SelectAsync(PublicacionesQueries.SelectPublicacionesIdVendedorQuery(), 
-                   new[] { OracleDBConnection.In("IdVendedor", await GetIdVendedor()) });
+                data = await con.SelectAsync(OfertasQueries.SelectOfertasByIdAgente(),
+                   new[] { OracleDBConnection.In("IdComprador", await GetIdAgente()) });
 
             }
 
             //Comprador
             if (userType == 3)
             {
-              data = await con.SelectAsync(PublicacionesQueries.SelectPublicacionesQuery());
+                data = await con.SelectAsync(OfertasQueries.SelectOfertasByIdComprador(),
+                     new[] { OracleDBConnection.In("IdComprador", await GetIdComprador()) });
 
 
             }
 
 
-            List<Publicaciones> PublicacionesList = new List<Publicaciones>();
-            foreach (Publicaciones e in ModelParser.ParsePublicaciones(data))
-            {
-                if (e.Eliminado == 0)
-                {
-                    PublicacionesList.Add(e);
-                }
-            }
+            List<OfertaDetalle> OfertasList = ReporteParser.ParseOfertaDetalle(data);
 
-            viewModel.PublicacionesList = PublicacionesList;
-            viewModel.IdTipoUsuario = userType ?? 0;
+            viewModel.OfertasList = OfertasList;
+
             await llenarListas();
             return View(viewModel);
         }
 
-        public async Task<IActionResult> CrearPublicacion(int IdInmueble)
+        public async Task<IActionResult> CrearOferta(int IdPublicacion)
         {
-            PublicacionesVerViewModel model = new PublicacionesVerViewModel();
-            model.IdInmueble = IdInmueble;
-            model.FechaPublicacion = DateTime.Now;
-
+            OfertasVerViewModel model = new OfertasVerViewModel();
+            model.IdPublicacion = IdPublicacion;
+            model.FechaHora = DateTime.Now;
+            model.IdComprador = await GetIdComprador();
             await llenarListas();
-            return View("CrearPublicacion", model);
+            return View("CrearOferta", model);
         }
 
 
-        public async Task<IActionResult> CrearPublicacionAccion(PublicacionesVerViewModel model)
+        public async Task<IActionResult> CrearOfertaAccion(OfertasVerViewModel model)
         {
             OracleDBConnection con = new OracleDBConnection();
 
             var IdSalida = OracleDBConnection.Out("IdSalida", OracleDbType.Int32);
 
-            var (cantidadAfectados, salidas) = await con.InsertAsync(PublicacionesQueries.InsertPublicacionQuery(),
+            var (cantidadAfectados, salidas) = await con.InsertAsync(OfertasQueries.InsertOfertaQuery(),
               new[] {
-                OracleDBConnection.In("IdInmueble", model.IdInmueble),
-                OracleDBConnection.In("IdAgente", model.IdAgente),
-                OracleDBConnection.In("FechaPublicacion", model.FechaPublicacion),
+                OracleDBConnection.In("IdPublicacion", model.IdPublicacion),
+                OracleDBConnection.In("IdComprador", model.IdComprador),
+                OracleDBConnection.In("Monto", model.Monto),
+                OracleDBConnection.In("IdFormaPago", model.IdFormaPago),
+                OracleDBConnection.In("PlazoDias", model.PlazoDias),
+                OracleDBConnection.In("FechaHora", model.FechaHora),
                     IdSalida });
 
-            return RedirectToAction("Index", "Publicaciones");
+            return RedirectToAction("Index", "Ofertas");
         }
 
 
@@ -161,27 +151,7 @@ namespace Proyecto_Inmuebles.Controllers
 
         }
 
-        [HttpPost]
-        public async Task<IActionResult> FiltrarPublicacionesAccion(PublicacionesViewModel model)
-        {
-            var viewModel = model ?? new PublicacionesViewModel();
-
-            OracleDBConnection con = new OracleDBConnection();
-            var data = await con.SelectAsync(
-                PublicacionesQueries.SelectPublicacionesByIdCondicion(),
-                new[] { OracleDBConnection.In("IdCondicion", viewModel.IdCondicionFiltro) }
-            );
-
-            var list = new List<PublicacionPorCondicion>();
-            foreach (var row in ReporteParser.ParsePublicacionesPorCondicion(data))
-                list.Add(row);
-
-            viewModel.PublicacionesFiltroList = list;
-
-            await llenarListas();
-            return View("FiltrarPublicaciones", viewModel);
-        }
-
+        
         private async Task<bool> llenarListas()
         {
 
@@ -210,7 +180,7 @@ namespace Proyecto_Inmuebles.Controllers
 
             ViewBag.listaInmuebles = listaInmuebles;
 
-            // Condiciones
+            // Inmuebles
             List<SelectListItem> listaCondiciones = await Utils.GetCondiciones();
 
             ViewBag.listaCondiciones = listaCondiciones;

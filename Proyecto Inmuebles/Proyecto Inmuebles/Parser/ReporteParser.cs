@@ -250,5 +250,29 @@ namespace Proyecto_Inmuebles.Parser
             }
             return list;
         }
+
+        public static List<OfertaDetalle> ParseOfertaDetalle(List<Dictionary<string, object?>> data)
+        {
+            var list = new List<OfertaDetalle>(data.Count);
+            foreach (var row in data)
+            {
+                list.Add(new OfertaDetalle
+                {
+                    IdOferta = ToInt(Get(row, "IdOferta")),
+                    FechaHora = ToStr(Get(row, "FechaHora")),
+                    Monto = ToDec(Get(row, "Monto")),
+                    PlazoDias = ToInt(Get(row, "PlazoDias")),
+                    NombreFormaPago = Nn(ToStr(Get(row, "NombreFormaPago"))),
+                    NombreEstado = Nn(ToStr(Get(row, "NombreEstado"))),
+
+                    IdPublicacion = ToInt(Get(row, "IdPublicacion")),
+                    IdInmueble = ToInt(Get(row, "IdInmueble")),
+                    Direccion = Nn(ToStr(Get(row, "Direccion"))),
+                    Precio = ToDec(Get(row, "Precio")),
+                    IdTipoInmueble = ToInt(Get(row, "IdTipoInmueble"))
+                });
+            }
+            return list;
+        }
     }
 }
