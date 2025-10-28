@@ -169,7 +169,11 @@ namespace Proyecto_Inmuebles.Controllers
             OracleDBConnection con = new OracleDBConnection();
             var data = await con.SelectAsync(
                 PublicacionesQueries.SelectPublicacionesByIdCondicion(),
-                new[] { OracleDBConnection.In("IdCondicion", viewModel.IdCondicionFiltro) }
+                new[] { OracleDBConnection.In("IdCondicion", viewModel.IdCondicionFiltro),
+                OracleDBConnection.In("IdTipoInmueble", viewModel.IdTipoInmuebleFiltro),
+                OracleDBConnection.In("PrecioMin", viewModel.PrecioMinFiltro),
+                OracleDBConnection.In("PrecioMax", viewModel.PrecioMaxFiltro),
+                OracleDBConnection.In("Direccion", (string.IsNullOrEmpty(viewModel.DireccionFiltro)? null : viewModel.DireccionFiltro))}
             );
 
             var list = new List<PublicacionPorCondicion>();

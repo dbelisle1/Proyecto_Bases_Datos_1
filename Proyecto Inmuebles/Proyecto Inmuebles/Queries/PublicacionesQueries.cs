@@ -45,8 +45,14 @@
                     WHERE ic.IdCondicion = :IdCondicion
                       AND p.Eliminado = 0 AND i.Eliminado = 0 AND ic.Eliminado = 0
                       AND v.Eliminado = 0 AND a.Eliminado = 0
+                        AND ( :IdTipoInmueble = 0 OR i.IdTipoInmueble = :IdTipoInmueble )
+                          AND ( :PrecioMin = 0 OR i.Precio >= :PrecioMin )
+                          AND ( :PrecioMax = 0 OR i.Precio <= :PrecioMax )
+                          AND ( :Direccion IS NULL OR UPPER(i.Direccion) LIKE '%' || UPPER(:Direccion) || '%' )
                     ORDER BY p.FechaPublicacion DESC";
         }
+
+       
 
 
         public static string InsertPublicacionQuery()

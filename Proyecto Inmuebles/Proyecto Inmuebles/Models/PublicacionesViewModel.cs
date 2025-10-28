@@ -5,8 +5,15 @@
         public List<Publicaciones> PublicacionesList {  get; set; }
         public List<PublicacionPorCondicion> PublicacionesFiltroList {  get; set; }
         public bool esComprador { get; set; } = false;
-        public int IdCondicionFiltro { get; set; } = 0;
         public int IdTipoUsuario { get; set; } = 0;
+
+        public int IdCondicionFiltro { get; set; } = 0;
+        public int IdTipoInmuebleFiltro { get; set; } = 0;
+        public int PrecioMinFiltro { get; set; } = 0;
+        public int PrecioMaxFiltro { get; set; } = 0;
+        public string? DireccionFiltro { get; set; } = string.Empty;
+
+
     }
 
     public class PublicacionesVerViewModel : Publicaciones

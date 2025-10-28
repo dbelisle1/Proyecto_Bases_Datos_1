@@ -5,12 +5,12 @@
 
 <h2>@ViewData["Title"]</h2>
 <p style="margin-top:12px;">
-    <div style="display:grid; gap:8px; max-width:700px;">
+    <div style="display:grid; gap:8px; max-width:1200px;">
         <form asp-controller="Publicaciones" asp-action="FiltrarPublicacionesAccion" method="post" class="border rounded p-3">
             <h5 class="mb-3">Publicaciones por Condicion</h5>
             <div class="row g-2 align-items-end">
-                <div class="col-sm-4">
-                    <label for="IdCondicionFiltro" class="form-label">IdComprador</label>
+                <div class="col-sm-2">
+                    <label for="IdCondicionFiltro" class="form-label">IdCondicionFiltro</label>
 
                     <select id="IdCondicionFiltro" name="IdCondicionFiltro" class="form-control">
                         @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.listaCondiciones)
@@ -21,8 +21,41 @@
                             </option>
                         }
                     </select>
+
+
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-2">
+                    <label for="IdTipoInmuebleFiltro" class="form-label">IdTipoInmuebleFiltro</label>
+
+                    <select id="IdTipoInmuebleFiltro" name="IdTipoInmuebleFiltro" class="form-control">
+                        @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.listaTipos)
+                        {
+                            <option value="@item.Value">
+                                @item.Text
+
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label for="PrecioMinFiltro" class="form-label">PrecioMinFiltro</label>
+                    <input asp-for="PrecioMinFiltro" />
+                </div>
+               
+
+                <div class="col-sm-2">
+                    <label for="PrecioMaxFiltro" class="form-label">PrecioMaxFiltro</label>
+                    <input asp-for="PrecioMaxFiltro" />
+                </div>
+
+                <div class="col-sm-2">
+                    <label for="DireccionFiltro" class="form-label">DireccionFiltro</label>
+                    <input asp-for="DireccionFiltro" />
+                </div>
+
+                
+
+                <div class="col-sm-2">
                     <button type="submit" class="btn btn-sm btn-primary w-100">Buscar</button>
                 </div>
             </div>

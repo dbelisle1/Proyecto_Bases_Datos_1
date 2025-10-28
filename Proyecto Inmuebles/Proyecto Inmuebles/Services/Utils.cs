@@ -178,20 +178,34 @@ namespace Proyecto_Inmuebles.Services
 
         }
 
-        //public static async void Notificar()
-        // {
-        //     OracleDBConnection con = new OracleDBConnection();
+        public static async Task<bool> NotificarOferta(Notificaciones noti)
+        {
+            OracleDBConnection con = new OracleDBConnection();
 
-        //     var IdSalida = OracleDBConnection.Out("IdSalida", OracleDbType.Int32);
+            var IdSalida = OracleDBConnection.Out("IdSalida", OracleDbType.Int32);
 
-        //     var (cantidadAfectados, salidas) = await con.InsertAsync(NotificacionesQueries.Inser(),
-        //       new[] {
-        //           OracleDBConnection.In("IdInmueble", model.IdInmueble),
-        //           OracleDBConnection.In("IdAgente", model.IdAgente),
-        //         OracleDBConnection.In("FechaPublicacion", model.FechaPublicacion),
-        //             IdSalida });
+            var (cantidadAfectados, salidas) = await con.InsertAsync(NotificacionesQueries.InsertNotificacionOfertaQuery(),
+              new[] {
+                   OracleDBConnection.In("IdOferta", noti.IdOferta),
+                   OracleDBConnection.In("Descripcion", noti.Descripcion),
+                     IdSalida });
+            return true;
 
-        // }
+        }
+
+        public static async Task<bool> NotificarContraOferta(Notificaciones noti)
+        {
+            OracleDBConnection con = new OracleDBConnection();
+
+            var IdSalida = OracleDBConnection.Out("IdSalida", OracleDbType.Int32);
+
+            var (cantidadAfectados, salidas) = await con.InsertAsync(NotificacionesQueries.InsertNotificacionContraOfertaQuery(),
+              new[] {
+                   OracleDBConnection.In("IdContraoferta", noti.IdOferta),
+                   OracleDBConnection.In("Descripcion", noti.Descripcion),
+                     IdSalida });
+            return true;
+        }
 
     }
 }

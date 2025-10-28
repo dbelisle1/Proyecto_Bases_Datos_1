@@ -75,6 +75,10 @@ namespace Proyecto_Inmuebles.Controllers
                 OracleDBConnection.In("FechaHora", model.FechaHora),
                     IdSalida });
 
+            int IdOfertaResult = int.Parse(salidas["IdSalida"].ToString() ?? "-1");
+
+            await Utils.NotificarOferta(new Notificaciones { IdOferta = IdOfertaResult, Descripcion = $"Se oferto por publicacion con id {model.IdPublicacion}" });
+
             return RedirectToAction("Index", "Ofertas");
         }
 

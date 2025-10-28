@@ -1,8 +1,4 @@
--- ============================================================
--- Real estate schema (Oracle) — inline CHECK constraints
--- ============================================================
 
--- ---------- Safe drops (ignore errors if not exists)
 BEGIN EXECUTE IMMEDIATE 'DROP TABLE Notificaciones CASCADE CONSTRAINTS'; EXCEPTION WHEN OTHERS THEN NULL; END;
 /
 BEGIN EXECUTE IMMEDIATE 'DROP TABLE Ventas CASCADE CONSTRAINTS'; EXCEPTION WHEN OTHERS THEN NULL; END;
@@ -38,9 +34,6 @@ BEGIN EXECUTE IMMEDIATE 'DROP TABLE Usuarios CASCADE CONSTRAINTS'; EXCEPTION WHE
 BEGIN EXECUTE IMMEDIATE 'DROP TABLE TipoUsuario CASCADE CONSTRAINTS'; EXCEPTION WHEN OTHERS THEN NULL; END;
 /
 
--- ============================================================
--- 1) Catalogs
--- ============================================================
 CREATE TABLE TipoUsuario (
   IdTipoUsuario NUMBER PRIMARY KEY,
   NombreTipo    NVARCHAR2(50) NOT NULL,
@@ -71,9 +64,6 @@ CREATE TABLE Condicion (
   Eliminado       NUMBER(1) DEFAULT 0 NOT NULL CHECK (Eliminado IN (0,1))
 );
 
--- ============================================================
--- 2) Users and 1:1 profiles
--- ============================================================
 CREATE TABLE Usuarios (
   IdUsuario     NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   IdTipoUsuario NUMBER NOT NULL,
@@ -121,9 +111,9 @@ CREATE TABLE Agentes (
   CONSTRAINT fk_agentes_usuarios FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
 );
 
--- ============================================================
--- 3) Properties and conditions
--- ============================================================
+
+
+
 CREATE TABLE Inmuebles (
   IdInmueble     NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   IdVendedor     NUMBER NOT NULL,
@@ -149,9 +139,6 @@ CREATE TABLE InmuebleCondicion (
   CONSTRAINT fk_inmueblecondicion_condicion  FOREIGN KEY (IdCondicion) REFERENCES Condicion(IdCondicion)
 );
 
--- ============================================================
--- 4) Listings (only place with agent)
--- ============================================================
 CREATE TABLE Publicaciones (
   IdPublicacion    NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   IdInmueble       NUMBER NOT NULL,
@@ -163,9 +150,7 @@ CREATE TABLE Publicaciones (
 );
 CREATE UNIQUE INDEX ux_publicaciones_inmueble ON Publicaciones(IdInmueble);
 
--- ============================================================
--- 5) Transactions
--- ============================================================
+
 CREATE TABLE Ofertas (
   IdOferta       NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   IdPublicacion  NUMBER NOT NULL,
@@ -217,9 +202,7 @@ CREATE TABLE Ventas (
   CONSTRAINT fk_ventas_formaspago     FOREIGN KEY (IdFormaPago)      REFERENCES FormasPago(IdFormaPago)
 );
 
--- ============================================================
--- 6) Notifications
--- ============================================================
+
 CREATE TABLE Notificaciones (
   IdNotificacion NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   IdOferta       NUMBER,
@@ -798,3 +781,39 @@ WHERE a.IDAGENTE = 3--(:IdAgente IS NULL OR a.IDAGENTE = :IdAgente)
   --AND (:EndDate   IS NULL OR p.FECHAPUBLICACION <  :EndDate)
 GROUP BY a.CODIGO
 ORDER BY INGRESOS DESC NULLS LAST;
+
+Select * from inmuebles
+Select * from publicaciones
+Select * from ofertas
+Select * from notificaciones
+
+SELECT n.IdNotificacion,
+                       'Oferta' AS Tipo,
+                       n.FechaHora,
+                       n.Descripcion,
+                       n.IdOferta,
+                       n.IdContraoferta
+                FROM Notificaciones n
+                JOIN Ofertas o          ON n.IdOferta = o.IdOferta
+                JOIN Publicaciones p    ON p.IdPublicacion = o.IdPublicacion
+                JOIN Inmuebles i        ON i.IdInmueble = p.IdInmueble
+                WHERE i.IdVendedor = 2
+                  AND n.Eliminado = 0 AND o.Eliminado = 0 AND p.Eliminado = 0 AND i.Eliminado = 0
+
+                UNION ALL
+
+                SELECT n.IdNotificacion,
+                       'Contraoferta' AS Tipo,
+                       n.FechaHora,
+                       n.Descripcion,
+                       n.IdOferta,
+                       n.IdContraoferta
+                FROM Notificaciones n
+                JOIN Contraofertas co   ON n.IdContraoferta = co.IdContraoferta
+                JOIN Ofertas o          ON o.IdOferta = co.IdOferta
+                JOIN Publicaciones p    ON p.IdPublicacion = o.IdPublicacion
+                JOIN Inmuebles i        ON i.IdInmueble = p.IdInmueble
+                WHERE i.IdVendedor = 2
+                  AND n.Eliminado = 0 AND co.Eliminado = 0 AND o.Eliminado = 0
+                  AND p.Eliminado = 0 AND i.Eliminado = 0
+                ORDER BY FechaHora DESC
