@@ -575,6 +575,19 @@ JOIN Usuarios u ON c.IdUsuario=u.IdUsuario WHERE u.NombreUsuario='comp2' AND p.C
 2, SYSTIMESTAMP - INTERVAL '7' DAY, 118000, 360, 0
 );
 
+COMMIT;
+
+INSERT INTO Ventas (IdOfertaAceptada, IdPrestamo, IdFormaPago, FechaCierre, PrecioFinal, PlazoDias, Eliminado)
+VALUES (
+(SELECT MAX(o.IdOferta) FROM Ofertas o
+WHERE o.IdPublicacion=(SELECT p.IdPublicacion FROM Publicaciones p JOIN Inmuebles i ON p.IdInmueble=i.IdInmueble WHERE i.Direccion='DirInm3')
+AND o.IdEstadoOferta=2),
+(SELECT MAX(p.IdPrestamo) FROM Prestamos p JOIN Compradores c ON p.IdComprador=c.IdComprador
+JOIN Usuarios u ON c.IdUsuario=u.IdUsuario WHERE u.NombreUsuario='comp2' AND p.CodigoPrestamo='PR-0002'),
+2, SYSTIMESTAMP - INTERVAL '7' DAY, 118000, 360, 0
+);
+
+
 -- Venta 3: Inm4 al contado (sin préstamo)
 INSERT INTO Ventas (IdOfertaAceptada, IdPrestamo, IdFormaPago, FechaCierre, PrecioFinal, PlazoDias, Eliminado)
 VALUES (
@@ -585,6 +598,16 @@ NULL,
 3, SYSTIMESTAMP - INTERVAL '6' DAY, 78000, 0, 0
 );
 COMMIT;
+
+--BYPASS VENTA
+--INSERT INTO Ventas (IdOfertaAceptada, IdPrestamo, IdFormaPago, FechaCierre, PrecioFinal, PlazoDias, Eliminado)
+--VALUES (
+--(SELECT MAX(o.IdOferta) FROM Ofertas o
+--WHERE o.IdPublicacion=(SELECT p.IdPublicacion FROM Publicaciones p JOIN Inmuebles i ON p.IdInmueble=i.IdInmueble WHERE i.Direccion='DirInm5')),
+--NULL,
+--3, SYSTIMESTAMP - INTERVAL '6' DAY, 78000, 0, 0
+--);
+--COMMIT;
 
 -- ===== Notificaciones adicionales =====
 -- Inm3: Oferta rechazada, contraofertas y aceptación
