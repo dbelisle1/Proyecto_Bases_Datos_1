@@ -6,6 +6,11 @@
         public List<VentaFiltro> VentasFiltroList {  get; set; }
 
         public int IdAgenteFiltro { get; set; }
+
+        int IdOfertaAceptada { get; set; } = 0;
+        int IdFormaPago { get; set; } = 0;
+        decimal PrecioFinal { get; set; } = 0;
+        int PlazoDias { get; set; } = 0;
     }
 
     public class VentasVerViewModel : Ventas

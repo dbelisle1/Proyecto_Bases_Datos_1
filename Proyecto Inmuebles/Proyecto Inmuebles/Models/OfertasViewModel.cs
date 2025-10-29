@@ -20,6 +20,8 @@
         public int PlazoDias { get; set; }
         public string NombreFormaPago { get; set; } = string.Empty;
         public string NombreEstado { get; set; } = string.Empty;
+        public int IdFormaPago { get; set; }
+        public int IdComprador { get; set; }
 
         public int IdPublicacion { get; set; }
         public int IdInmueble { get; set; }//

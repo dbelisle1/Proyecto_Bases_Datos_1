@@ -264,7 +264,7 @@ namespace Proyecto_Inmuebles.Parser
                     PlazoDias = ToInt(Get(row, "PlazoDias")),
                     NombreFormaPago = Nn(ToStr(Get(row, "NombreFormaPago"))),
                     NombreEstado = Nn(ToStr(Get(row, "NombreEstado"))),
-
+                    IdFormaPago = ToInt(Get(row, "IdFormaPago")),
                     IdPublicacion = ToInt(Get(row, "IdPublicacion")),
                     IdInmueble = ToInt(Get(row, "IdInmueble")),
                     Direccion = Nn(ToStr(Get(row, "Direccion"))),

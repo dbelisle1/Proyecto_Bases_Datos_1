@@ -24,6 +24,17 @@
                       AND i.Eliminado = 0
                     ORDER BY v.FechaCierre DESC";
         }
-       
+
+
+        public static string InsertVentaAceptadaQueryQuery()
+        {
+            return @"INSERT INTO Ventas (
+                  IdVenta, IdOfertaAceptada, IdPrestamo, IdFormaPago, FechaCierre, PrecioFinal, PlazoDias, Eliminado
+                ) VALUES (
+                  DEFAULT, :IdOfertaAceptada, :IdPrestamo, :IdFormaPago, SYSDATE, :PrecioFinal, :PlazoDias, 0
+                )
+                RETURNING IdVenta INTO :IdSalida";
+        }
+
     }
 }

@@ -26,7 +26,7 @@ namespace Proyecto_Inmuebles.Controllers
             if (userType == 1)
             {
                 data = await con.SelectAsync(OfertasQueries.SelectOfertasByIdAgente(),
-                   new[] { OracleDBConnection.In("IdComprador", await GetIdAgente()) });
+                   new[] { OracleDBConnection.In("IdAgente", await GetIdAgente()) });
 
             }
 

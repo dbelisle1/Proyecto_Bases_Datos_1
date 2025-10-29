@@ -23,12 +23,14 @@
                     <th>Direccion</th>
                     <th>Precio</th>
                     <th>IdTipoInmueble</th>
+                    <th>Aceptar Oferta</th>
                 </tr>
             </thead>
             <tbody class="text-center">
                 @foreach (var item in Model.OfertasList)
                 {
                 <tr>
+                    
                         <td>@item.IdOferta</td>
                         <td>@item.FechaHora</td>
                         <td>@item.Monto</td>
@@ -65,7 +67,17 @@
 
                             }
                         </td>
-                        
+                        <td>
+                            <a asp-controller="Ventas"
+                               asp-action="AceptarOfertaAccion"
+                               asp-route-IdOfertaAceptada="@item.IdOferta"
+                               asp-route-IdFormaPago="@item.IdFormaPago"
+                               asp-route-PrecioFinal="@item.Precio"
+                               asp-route-PlazoDias="@item.PlazoDias"
+                               class="btn btn-sm btn-outline-secondary me-1">
+                                Aceptar Oferta
+                            </a>
+                        </td>
                 </tr>
                 }
             </tbody>
